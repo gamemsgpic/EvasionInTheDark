@@ -74,12 +74,14 @@ void Enemy::Release()
 void Enemy::Reset()
 {
 	track = dynamic_cast<Track*>(SCENE_MGR.GetCurrentScene()->FindGo("Track"));
+	gravity.y = 300.f;
 }
 
 void Enemy::Update(float dt)
 {
-	SetPosition({ position + gravity * dt });
-	enemyHitBox.setPosition(position);
+	currentPos = position + gravity * dt;
+	SetPosition(currentPos);
+	enemyHitBox.setPosition(currentPos);
 }
 
 void Enemy::Draw(sf::RenderWindow& window)
@@ -90,18 +92,14 @@ void Enemy::Draw(sf::RenderWindow& window)
 
 void Enemy::SetType(Types type)
 {
-	sf::Vector2f enemyCurrentPos = { FRAMEWORK.GetWindowSizeF().x * 0.5f,
-			FRAMEWORK.GetWindowSizeF().y * 0.5f };
-	sf::Vector2f hitorigin = { FRAMEWORK.GetWindowSizeF().x * 0.5f,
-			FRAMEWORK.GetWindowSizeF().y * 0.5f };
 	this->types = type;
 	switch (this->types)
 	{
 	case Types::Bass:
 		textureId = "graphics/enemybass.png";
-		body.setPosition(enemyCurrentPos);
+		body.setPosition(currentPos);
 		enemyHitBox.setRadius(64);
-		enemyHitBox.setPosition(enemyCurrentPos);
+		enemyHitBox.setPosition(currentPos);
 		enemyHitBox.setFillColor(sf::Color::Transparent);
 		enemyHitBox.setOutlineColor(sf::Color::Green);
 		enemyHitBox.setOutlineThickness(2);
@@ -110,9 +108,9 @@ void Enemy::SetType(Types type)
 		break;
 	case Types::Castanets:
 		textureId = "graphics/enemycastanets.png";
-		body.setPosition(enemyCurrentPos);
+		body.setPosition(currentPos);
 		enemyHitBox.setRadius(64);
-		enemyHitBox.setPosition(enemyCurrentPos);
+		enemyHitBox.setPosition(currentPos);
 		enemyHitBox.setFillColor(sf::Color::Transparent);
 		enemyHitBox.setOutlineColor(sf::Color::Green);
 		enemyHitBox.setOutlineThickness(2);
@@ -121,9 +119,9 @@ void Enemy::SetType(Types type)
 		break;
 	case Types::Drum:
 		textureId = "graphics/enemydrum.png";
-		body.setPosition(enemyCurrentPos);
+		body.setPosition(currentPos);
 		enemyHitBox.setRadius(64);
-		enemyHitBox.setPosition(enemyCurrentPos);
+		enemyHitBox.setPosition(currentPos);
 		enemyHitBox.setFillColor(sf::Color::Transparent);
 		enemyHitBox.setOutlineColor(sf::Color::Green);
 		enemyHitBox.setOutlineThickness(2);

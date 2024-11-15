@@ -78,7 +78,7 @@
     <ClCompile Include="Framework\SoundMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\UiHud.cpp">
+    <ClCompile Include="UiHud.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SceneGame.cpp">
@@ -167,7 +167,7 @@
     <ClInclude Include="Framework\SoundMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\UiHud.h">
+    <ClInclude Include="UiHud.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SceneGame.h">

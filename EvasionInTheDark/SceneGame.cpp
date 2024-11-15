@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "Track.h"
 #include "Enemy.h"
+#include "UiHud.h"
+
 SceneGame::SceneGame() : Scene(SceneIds::Game)
 {
 }
@@ -12,6 +14,7 @@ void SceneGame::Init()
 	player = AddGo(new Player("Player"));
 	track = AddGo(new Track("Track"));
 	enemy = AddGo(new Enemy("Enemy"));
+	uihud = AddGo(new UiHud("UiHud"));
 	player->SetOrigin(Origins::MC);
 	track->SetOrigin(Origins::MC);
 	enemy->SetOrigin(Origins::MC);
@@ -31,6 +34,7 @@ void SceneGame::Enter()
 	worldView.setCenter(FRAMEWORK.GetWindowSizeF().x * 0.5f, FRAMEWORK.GetWindowSizeF().y * 0.5f);
 
 	enemy->ChangeEnemyDie(false);
+	spawnDelay = 5.f;
 
 	SpawnTrack(3);
 	Scene::Enter();
@@ -58,9 +62,13 @@ void SceneGame::Update(float dt)
 	Scene::Update(dt);
 
 	spawnEnemyTime += dt;
+	if (spawnDelay <= 4.f)
+	{
+		spawnDelay = 4.f;
+	}
 	if (spawnEnemyTime > spawnDelay)
 	{
-		SpawnEnemy(1);
+		SpawnEnemy(Utils::RandomRange(1, 2));
 		spawnEnemyTime = 0.f;
 	}
 
@@ -69,9 +77,14 @@ void SceneGame::Update(float dt)
 		if (enemy->GetPosition().y > FRAMEWORK.GetWindowSizeF().y +
 			enemy->GetGlobalBounds().height + 50.f)
 		{
-			if (player->GetHit() == false)
+			if (enemy->GetHit() == false)
 			{
+				player->SetScore();
 				player->LevelPointUp();
+			}
+			else
+			{
+				enemy->ChangeHit(false);
 			}
 			enemy->SetSoundStop();
 			RemoveGo(enemy);

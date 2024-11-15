@@ -15,12 +15,17 @@ protected:
 
 	int life = 0;
 	int currentTrack = 2;
+
+	int score = 0;
 	int levelPoint = 0;
 	int level = 0;
-	int bestLevel = 0;
+	int bestScore = 0;
+
+	float damage = 3.f;
+	float damageDelay = 3.f;
 
 	bool playerDie = false;
-	bool hit = false;
+	//bool hit = false;
 
 	Track* track;
 	Enemy* enemy;
@@ -49,8 +54,13 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	bool GetHit() { return hit; }
+	//void ChangeHit(bool boom) { hit = boom; }
+	//bool GetHit() { return hit; }
 
 	void LifeUp();
 	void LevelPointUp() { ++levelPoint; }
+	void SetScore() { ++score; }
+	int GetScore() { return score; }
+	int GetBestScore() { return bestScore; }
+	int GetLife() { return life; }
 };

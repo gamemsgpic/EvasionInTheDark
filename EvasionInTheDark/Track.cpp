@@ -82,7 +82,7 @@ void Track::Update(float dt)
 	{
 		if (sound1Start >= soundDelay)
 		{
-			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/left.wav"), false)->setVolume(1.f);
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/left.wav"), false)->setVolume(0.5f);
 			sound1Start = 0.f;
 			sound2Start = 5.f;
 			sound3Start = 5.f;
@@ -92,7 +92,7 @@ void Track::Update(float dt)
 	{
 		if (sound2Start >= soundDelay)
 		{
-			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/mid.wav"), false)->setVolume(1.f);
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/mid.wav"), false)->setVolume(0.5f);
 			sound2Start = 0.f;
 			sound1Start = 5.f;
 			sound3Start = 5.f;
@@ -102,7 +102,7 @@ void Track::Update(float dt)
 	{
 		if (sound3Start >= soundDelay)
 		{
-			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/right.wav"), false)->setVolume(1.f);
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/right.wav"), false)->setVolume(0.5f);
 			sound3Start = 0.f;
 			sound1Start = 5.f;
 			sound2Start = 5.f;

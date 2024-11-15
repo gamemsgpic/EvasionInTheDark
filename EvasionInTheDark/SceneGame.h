@@ -4,6 +4,7 @@
 class Player;
 class Track;
 class Enemy;
+class UiHud;
 
 class SceneGame : public Scene
 {
@@ -11,6 +12,7 @@ protected:
 	Player* player;
 	Track* track;
 	Enemy* enemy;
+	UiHud* uihud;
 
 	std::list<Enemy*> enemys;
 	ObjectPool<Enemy> enemyPool;
@@ -40,7 +42,7 @@ public:
 
 	void SpawnTrack(int count);
 	void SpawnEnemy(int count);
-	void SpawnSpeedUp() { spawnDelay -= 0.25f; }
+	void SpawnSpeedUp() { spawnDelay -= 0.2f; }
 
 
 };

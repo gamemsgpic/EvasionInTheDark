@@ -152,7 +152,7 @@
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
     <ClCompile Include="Framework\SoundMgr.cpp" />
-    <ClCompile Include="Framework\UiHud.cpp" />
+    <ClCompile Include="UiHud.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Framework\DataTable.cpp" />
     <ClCompile Include="Framework\DataTableMgr.cpp" />
@@ -205,7 +205,7 @@
     <ClInclude Include="Framework\stdafx.h" />
     <ClInclude Include="Framework\StringTable.h" />
     <ClInclude Include="Framework\TextGo.h" />
-    <ClInclude Include="Framework\UiHud.h" />
+    <ClInclude Include="UiHud.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\Variables.h" />
     <ClInclude Include="Player.h" />

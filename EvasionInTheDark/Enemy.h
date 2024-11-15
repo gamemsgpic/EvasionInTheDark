@@ -27,6 +27,7 @@ protected:
 
 	sf::Sound* sound;
 
+	bool hit = false;
 	bool enemyDie = false;
 
 
@@ -60,6 +61,8 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+	void ChangeHit(bool h) { hit = h; }
+	bool GetHit() { return hit; }
 	void SetType(Types type);
-	void GravityUp() { gravity.y += 25.f; }
+	void GravityUp() { gravity.y *= 1.5f; }
 };

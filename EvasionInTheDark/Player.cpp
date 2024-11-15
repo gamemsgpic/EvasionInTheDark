@@ -65,6 +65,8 @@ void Player::Init()
 	hitBox.setOutlineColor(sf::Color::Green);
 	hitBox.setOutlineThickness(2);
 
+	//hit = false;
+
 }
 
 void Player::Release()
@@ -87,12 +89,15 @@ void Player::Reset()
 	hitBox.setOrigin(GetOrigin());
 	hitBox.setPosition(currentPos);
 
-	
+	score = 0;
+	life = 3;
 
 }
 
 void Player::Update(float dt)
 {
+	damage += dt;
+	bestScore = score;
 	if (currentTrack < 3)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
@@ -127,13 +132,18 @@ void Player::Update(float dt)
 			(enemy->GetPosition().x - GetPosition().x) +
 			(enemy->GetPosition().y - GetPosition().y) *
 			(enemy->GetPosition().y - GetPosition().y));
+
 		if (circlesPos < circles)
 		{
-			--life;
-			hit = true;
+			if (damage > damageDelay)
+			{
+				--life;
+				enemy->ChangeHit(true);
+				damage = 0.f;
+			}
 		}
 	}
-	if (levelPoint == 10)
+	if (levelPoint >= 2)
 	{
 		++level;
 		enemy->GravityUp();
