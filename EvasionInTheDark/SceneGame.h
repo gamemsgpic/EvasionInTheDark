@@ -18,12 +18,8 @@ protected:
 	std::list<Track*> tracks;
 	ObjectPool<Track> trackPool;
 
-	float spawnEnemy = 0.f;
+	float spawnEnemyTime = 0.f;
 	float spawnDelay = 5.f;
-
-	int level = 0;
-	int bestLevel = 0;
-	int levelUp = 0;
 
 public:
 	SceneGame();
@@ -39,8 +35,12 @@ public:
 	void LateUpdate(float dt);
 	void FixedUpdate(float dt);
 
+	const std::list<Enemy*> GetEnemyList() { return enemys; }
+	const std::list<Track*> GetTrackList() { return tracks; }
+
 	void SpawnTrack(int count);
 	void SpawnEnemy(int count);
+	void SpawnSpeedUp() { spawnDelay -= 0.25f; }
 
 
 };

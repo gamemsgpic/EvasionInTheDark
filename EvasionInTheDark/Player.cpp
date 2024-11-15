@@ -1,6 +1,8 @@
 ﻿#include "stdafx.h"
 #include "Player.h"
 #include "Track.h"
+#include "Enemy.h"
+#include "SceneGame.h"
 
 Player::Player(const std::string& name)
 	: GameObject(name)
@@ -72,6 +74,8 @@ void Player::Release()
 void Player::Reset()
 {
 	track = dynamic_cast<Track*>(SCENE_MGR.GetCurrentScene()->FindGo("Track"));
+	enemy = dynamic_cast<Enemy*>(SCENE_MGR.GetCurrentScene()->FindGo("Enemy"));
+	scenegame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 
 	TEXTURE_MGR.Get(textureId).setSmooth(true);
 	body.setTexture(TEXTURE_MGR.Get(textureId), true);
@@ -82,6 +86,8 @@ void Player::Reset()
 	SetPosition(currentPos);
 	hitBox.setOrigin(GetOrigin());
 	hitBox.setPosition(currentPos);
+
+	
 
 }
 
@@ -107,6 +113,33 @@ void Player::Update(float dt)
 		}
 	}
 	hitBox.setPosition(currentPos);
+
+	const auto& list = scenegame->GetEnemyList();
+	for (auto& enemy : list)
+	{
+		if (!enemy->IsActive())
+		{
+			continue;
+		}
+		float circles = (hitBox.getRadius() + hitBox.getRadius()) *
+			(enemy->GetEnemyRadius() + enemy->GetEnemyRadius());
+		float circlesPos = ((enemy->GetPosition().x - GetPosition().x) *
+			(enemy->GetPosition().x - GetPosition().x) +
+			(enemy->GetPosition().y - GetPosition().y) *
+			(enemy->GetPosition().y - GetPosition().y));
+		if (circlesPos < circles)
+		{
+			--life;
+			hit = true;
+		}
+	}
+	if (levelPoint == 10)
+	{
+		++level;
+		enemy->GravityUp();
+		scenegame->SpawnSpeedUp();
+		levelPoint = 0;
+	}
 }
 
 void Player::Draw(sf::RenderWindow& window)

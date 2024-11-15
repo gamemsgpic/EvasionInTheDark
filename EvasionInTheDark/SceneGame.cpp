@@ -15,6 +15,7 @@ void SceneGame::Init()
 	player->SetOrigin(Origins::MC);
 	track->SetOrigin(Origins::MC);
 	enemy->SetOrigin(Origins::MC);
+	//enemy->ChangeEnemyDie(false);
 
 	Scene::Init();
 }
@@ -28,6 +29,8 @@ void SceneGame::Enter()
 {
 	worldView.setSize(FRAMEWORK.GetWindowSizeF());
 	worldView.setCenter(FRAMEWORK.GetWindowSizeF().x * 0.5f, FRAMEWORK.GetWindowSizeF().y * 0.5f);
+
+	enemy->ChangeEnemyDie(false);
 
 	SpawnTrack(3);
 	Scene::Enter();
@@ -54,11 +57,11 @@ void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
 
-	spawnEnemy += dt;
-	if (spawnEnemy > spawnDelay)
+	spawnEnemyTime += dt;
+	if (spawnEnemyTime > spawnDelay)
 	{
 		SpawnEnemy(1);
-		spawnEnemy = 0.f;
+		spawnEnemyTime = 0.f;
 	}
 
 	for (auto& enemy : enemys)
@@ -66,9 +69,15 @@ void SceneGame::Update(float dt)
 		if (enemy->GetPosition().y > FRAMEWORK.GetWindowSizeF().y +
 			enemy->GetGlobalBounds().height + 50.f)
 		{
+			if (player->GetHit() == false)
+			{
+				player->LevelPointUp();
+			}
+			enemy->SetSoundStop();
 			RemoveGo(enemy);
 			enemyPool.Return(enemy);
-			enemy->SetSoundStop();
+			enemys.remove(enemy);
+			break;
 		}
 	}
 }

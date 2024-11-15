@@ -1,6 +1,8 @@
 #pragma once
 
 class Track;
+class Enemy;
+class SceneGame;
 
 class Player : public GameObject
 {
@@ -13,10 +15,16 @@ protected:
 
 	int life = 0;
 	int currentTrack = 2;
+	int levelPoint = 0;
+	int level = 0;
+	int bestLevel = 0;
 
-	bool soundStop = false;
+	bool playerDie = false;
+	bool hit = false;
 
 	Track* track;
+	Enemy* enemy;
+	SceneGame* scenegame;
 
 public:
 	Player(const std::string& name = "");
@@ -41,5 +49,8 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+	bool GetHit() { return hit; }
+
 	void LifeUp();
+	void LevelPointUp() { ++levelPoint; }
 };

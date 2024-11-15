@@ -21,11 +21,13 @@ protected:
 	sf::Vector2f currentPos;
 	sf::Vector2f gravity = { 0.f, 300.f };
 
-	sf::CircleShape hitBox;
+	sf::CircleShape enemyHitBox;
 
 	Track* track;
 
 	sf::Sound* sound;
+
+	bool enemyDie = false;
 
 
 public:
@@ -47,6 +49,11 @@ public:
 	sf::FloatRect GetLocalBounds() const override;
 	sf::FloatRect GetGlobalBounds() const override;
 
+	void ChangeEnemyDie(bool change) { enemyDie = change; }
+	bool GetEnemyDie() { return enemyDie; }
+
+	float GetEnemyRadius() { return enemyHitBox.getRadius(); }
+
 	void Init() override;
 	void Release() override;
 	void Reset() override;
@@ -54,4 +61,5 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetType(Types type);
+	void GravityUp() { gravity.y += 25.f; }
 };

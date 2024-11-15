@@ -79,13 +79,13 @@ void Enemy::Reset()
 void Enemy::Update(float dt)
 {
 	SetPosition({ position + gravity * dt });
-	hitBox.setPosition(position);
+	enemyHitBox.setPosition(position);
 }
 
 void Enemy::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
-	window.draw(hitBox);
+	window.draw(enemyHitBox);
 }
 
 void Enemy::SetType(Types type)
@@ -100,37 +100,37 @@ void Enemy::SetType(Types type)
 	case Types::Bass:
 		textureId = "graphics/enemybass.png";
 		body.setPosition(enemyCurrentPos);
-		hitBox.setRadius(64);
-		hitBox.setPosition(enemyCurrentPos);
-		hitBox.setFillColor(sf::Color::Transparent);
-		hitBox.setOutlineColor(sf::Color::Green);
-		hitBox.setOutlineThickness(2);
+		enemyHitBox.setRadius(64);
+		enemyHitBox.setPosition(enemyCurrentPos);
+		enemyHitBox.setFillColor(sf::Color::Transparent);
+		enemyHitBox.setOutlineColor(sf::Color::Green);
+		enemyHitBox.setOutlineThickness(2);
 		sound = SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/bass.wav"), true);
 		sound->setVolume(15.f);
 		break;
 	case Types::Castanets:
 		textureId = "graphics/enemycastanets.png";
 		body.setPosition(enemyCurrentPos);
-		hitBox.setRadius(64);
-		hitBox.setPosition(enemyCurrentPos);
-		hitBox.setFillColor(sf::Color::Transparent);
-		hitBox.setOutlineColor(sf::Color::Green);
-		hitBox.setOutlineThickness(2);
+		enemyHitBox.setRadius(64);
+		enemyHitBox.setPosition(enemyCurrentPos);
+		enemyHitBox.setFillColor(sf::Color::Transparent);
+		enemyHitBox.setOutlineColor(sf::Color::Green);
+		enemyHitBox.setOutlineThickness(2);
 		sound = SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/castanets.wav"), true);
 		sound->setVolume(15.f);
 		break;
 	case Types::Drum:
 		textureId = "graphics/enemydrum.png";
 		body.setPosition(enemyCurrentPos);
-		hitBox.setRadius(64);
-		hitBox.setPosition(enemyCurrentPos);
-		hitBox.setFillColor(sf::Color::Transparent);
-		hitBox.setOutlineColor(sf::Color::Green);
-		hitBox.setOutlineThickness(2);
+		enemyHitBox.setRadius(64);
+		enemyHitBox.setPosition(enemyCurrentPos);
+		enemyHitBox.setFillColor(sf::Color::Transparent);
+		enemyHitBox.setOutlineColor(sf::Color::Green);
+		enemyHitBox.setOutlineThickness(2);
 		sound = SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/drum.wav"), true);
 		sound->setVolume(15.f);
 		break;
 	}
 	body.setTexture(TEXTURE_MGR.Get(textureId), true);
-	Utils::SetOrigin(hitBox, Origins::MC);
+	Utils::SetOrigin(enemyHitBox, Origins::MC);
 }
