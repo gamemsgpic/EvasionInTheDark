@@ -74,6 +74,7 @@ void Enemy::Release()
 void Enemy::Reset()
 {
 	track = dynamic_cast<Track*>(SCENE_MGR.GetCurrentScene()->FindGo("Track"));
+	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
 	gravity.y = 300.f;
 }
 
@@ -87,7 +88,10 @@ void Enemy::Update(float dt)
 void Enemy::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
-	window.draw(enemyHitBox);
+	if (sceneGame->GetHitBoxAct() == true)
+	{
+		window.draw(enemyHitBox);
+	}
 }
 
 void Enemy::SetType(Types type)

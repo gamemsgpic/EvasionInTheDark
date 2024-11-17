@@ -13,6 +13,7 @@ protected:
 	Track* track;
 	Enemy* enemy;
 	UiHud* uihud;
+	sf::Sound* sound;
 
 	std::list<Enemy*> enemys;
 	ObjectPool<Enemy> enemyPool;
@@ -22,6 +23,11 @@ protected:
 
 	float spawnEnemyTime = 0.f;
 	float spawnDelay = 5.f;
+
+	float upScoreTime = 2.f;
+	float upScoreDelay = 2.f;
+
+	bool hitBoxAct = false;
 
 public:
 	SceneGame();
@@ -39,6 +45,8 @@ public:
 
 	const std::list<Enemy*> GetEnemyList() { return enemys; }
 	const std::list<Track*> GetTrackList() { return tracks; }
+
+	bool GetHitBoxAct() { return hitBoxAct; }
 
 	void SpawnTrack(int count);
 	void SpawnEnemy(int count);

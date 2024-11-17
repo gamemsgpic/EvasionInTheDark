@@ -56,6 +56,11 @@ void Track::Init()
 {
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 0;
+
+	SetOrigin(Origins::MC);
+	SetScale({ 1, 1 });
+	SetPosition({ FRAMEWORK.GetWindowSizeF().x * 0.5f,
+		FRAMEWORK.GetWindowSizeF().y * 0.5f });
 }
 
 void Track::Release()
@@ -78,7 +83,7 @@ void Track::Update(float dt)
 	sound1Start += dt;
 	sound2Start += dt;
 	sound3Start += dt;
-	if (player->GetCurrentTrack() == 1)
+	if (player->GetCurrentTrack() == 0)
 	{
 		if (sound1Start >= soundDelay)
 		{
@@ -88,7 +93,7 @@ void Track::Update(float dt)
 			sound3Start = 5.f;
 		}
 	}
-	if (player->GetCurrentTrack() == 2)
+	if (player->GetCurrentTrack() == 1)
 	{
 		if (sound2Start >= soundDelay)
 		{
@@ -98,7 +103,7 @@ void Track::Update(float dt)
 			sound3Start = 5.f;
 		}
 	}
-	if (player->GetCurrentTrack() == 3)
+	if (player->GetCurrentTrack() == 2)
 	{
 		if (sound3Start >= soundDelay)
 		{
@@ -113,4 +118,14 @@ void Track::Update(float dt)
 void Track::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
+}
+
+void Track::SetRandomColor()
+{
+	body.setColor(sf::Color(Utils::RandomColor()));
+}
+
+void Track::SetColor()
+{
+	body.setColor(sf::Color::White);
 }

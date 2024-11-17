@@ -70,14 +70,22 @@ void UiHud::Reset()
 	textLife.setFillColor(sf::Color::White);
 	Utils::SetOrigin(textLife, Origins::TR);
 
+	textgameOver.setFont(font);
+	textgameOver.setCharacterSize(textSize * 2);
+	textgameOver.setFillColor(sf::Color::White);
+	textgameOver.setOutlineThickness(2);
+	textgameOver.setOutlineColor(sf::Color::Black);
+	Utils::SetOrigin(textLife, Origins::TR);
+
 	iconLight.setTexture(TEXTURE_MGR.Get("graphics/uilight.png"));
 	Utils::SetOrigin(iconLight, Origins::BL);
 
 	sf::Vector2f size = FRAMEWORK.GetWindowSizeF();
 
-	textScore.setPosition(track->GetGlobalBounds().width + 80.f , track->GetGlobalBounds().height / 8);
+	textScore.setPosition(track->GetGlobalBounds().width + 80.f, track->GetGlobalBounds().height / 8);
 	textHighScore.setPosition(track->GetGlobalBounds().width + 80.f, track->GetGlobalBounds().height / 8 - (textSize * 2));
 	textLife.setPosition(track->GetGlobalBounds().width + 80.f, track->GetGlobalBounds().height / 2 + (textSize * 12));
+	textgameOver.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.19f, FRAMEWORK.GetWindowSizeF().x * 0.25f);
 
 	iconLight.setPosition(track->GetGlobalBounds().width + 460.f, track->GetGlobalBounds().height / 2);
 
@@ -85,6 +93,7 @@ void UiHud::Reset()
 	SetScore(player->GetScore());
 	SetHiScore(player->GetBestScore());
 	SetLife(player->GetLife());
+	SetGameOver();
 }
 
 void UiHud::Update(float dt)
@@ -100,6 +109,10 @@ void UiHud::Draw(sf::RenderWindow& window)
 	window.draw(textHighScore);
 	window.draw(textLife);
 	window.draw(iconLight);
+	if (player->GetLife() == 0)
+	{
+		window.draw(textgameOver);
+	}
 }
 
 void UiHud::SetScore(int s)
@@ -117,5 +130,11 @@ void UiHud::SetHiScore(int s)
 void UiHud::SetLife(int current)
 {
 	textLife.setString("Life: " + std::to_string(current));
+	Utils::SetOrigin(textLife, Origins::TR);
+}
+
+void UiHud::SetGameOver()
+{
+	textgameOver.setString("Game Over");
 	Utils::SetOrigin(textLife, Origins::TR);
 }

@@ -89,6 +89,7 @@ void Player::Reset()
 	hitBox.setOrigin(GetOrigin());
 	hitBox.setPosition(currentPos);
 
+	currentTrack = 1;
 	score = 0;
 	life = 3;
 
@@ -97,8 +98,11 @@ void Player::Reset()
 void Player::Update(float dt)
 {
 	damage += dt;
-	bestScore = score;
-	if (currentTrack < 3)
+	if (score > bestScore)
+	{
+		bestScore = score;
+	}
+	if (currentTrack < 2)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
 		{
@@ -108,7 +112,7 @@ void Player::Update(float dt)
 		}
 	}
 
-	if (currentTrack > 1)
+	if (currentTrack > 0)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Left))
 		{
@@ -137,13 +141,14 @@ void Player::Update(float dt)
 		{
 			if (damage > damageDelay)
 			{
+				SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/damage.wav"))->setVolume(3.f);
 				--life;
 				enemy->ChangeHit(true);
 				damage = 0.f;
 			}
 		}
 	}
-	if (levelPoint >= 2)
+	if (levelPoint >= 10)
 	{
 		++level;
 		enemy->GravityUp();
@@ -155,7 +160,10 @@ void Player::Update(float dt)
 void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
-	window.draw(hitBox);
+	if (scenegame->GetHitBoxAct() == true)
+	{
+		window.draw(hitBox);
+	}
 }
 
 void Player::LifeUp()

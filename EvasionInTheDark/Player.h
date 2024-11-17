@@ -14,7 +14,7 @@ protected:
 	sf::Vector2f currentPos;
 
 	int life = 0;
-	int currentTrack = 2;
+	int currentTrack = 1;
 
 	int score = 0;
 	int levelPoint = 0;

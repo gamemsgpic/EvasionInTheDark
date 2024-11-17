@@ -1,6 +1,7 @@
 #pragma once
 
 class Track;
+class SceneGame;
 
 class Enemy : public GameObject
 {
@@ -24,6 +25,7 @@ protected:
 	sf::CircleShape enemyHitBox;
 
 	Track* track;
+	SceneGame* sceneGame;
 
 	sf::Sound* sound;
 
@@ -64,5 +66,5 @@ public:
 	void ChangeHit(bool h) { hit = h; }
 	bool GetHit() { return hit; }
 	void SetType(Types type);
-	void GravityUp() { gravity.y *= 1.5f; }
+	void GravityUp() { gravity.y += 50.f; }
 };

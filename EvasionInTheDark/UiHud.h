@@ -14,6 +14,7 @@ protected:
 	sf::Text textScore;
 	sf::Text textHighScore;
 	sf::Text textLife;
+	sf::Text textgameOver;
 
 	sf::Sprite iconLight;
 public:
@@ -36,4 +37,5 @@ public:
 	void SetScore(int s);
 	void SetHiScore(int s);
 	void SetLife(int current);
+	void SetGameOver();
 };

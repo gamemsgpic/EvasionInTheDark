@@ -20,6 +20,9 @@ void SceneGame::Init()
 	enemy->SetOrigin(Origins::MC);
 	//enemy->ChangeEnemyDie(false);
 
+	SoundMgr::Instance().PlayBgm(SOUNDBUFFER_MGR.Get("sound/bgm.wav"), true);
+	SoundMgr::Instance().SetBgmVolume(2.f);
+	SoundMgr::Instance().PlayBgm("sound/bgm.wav");
 	Scene::Init();
 }
 
@@ -33,9 +36,9 @@ void SceneGame::Enter()
 	worldView.setSize(FRAMEWORK.GetWindowSizeF());
 	worldView.setCenter(FRAMEWORK.GetWindowSizeF().x * 0.5f, FRAMEWORK.GetWindowSizeF().y * 0.5f);
 
-	enemy->ChangeEnemyDie(false);
+	//enemy->ChangeEnemyDie(false);
+	SOUND_MGR.PlayBgm("sound/bgm.wav");
 	spawnDelay = 5.f;
-
 	SpawnTrack(3);
 	Scene::Enter();
 }
@@ -72,15 +75,19 @@ void SceneGame::Update(float dt)
 		spawnEnemyTime = 0.f;
 	}
 
+	upScoreTime += dt;
 	for (auto& enemy : enemys)
 	{
 		if (enemy->GetPosition().y > FRAMEWORK.GetWindowSizeF().y +
 			enemy->GetGlobalBounds().height + 50.f)
 		{
-			if (enemy->GetHit() == false)
+			if (enemy->GetHit() == false && upScoreTime > upScoreDelay)
 			{
 				player->SetScore();
 				player->LevelPointUp();
+				sound = SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/scoreup.wav"), false);
+				sound->setVolume(0.5f);
+				upScoreTime = 0.f;
 			}
 			else
 			{
@@ -92,6 +99,35 @@ void SceneGame::Update(float dt)
 			enemys.remove(enemy);
 			break;
 		}
+	}
+	//트랙 색상 바꾸는 것
+	//auto it = tracks.begin();
+	//while (it != tracks.end())
+	//{
+	//	if ((*it) == (Track*)player->GetCurrentTrack())
+	//	{
+	//		(*it)->SetRandomColor();
+	//	}
+	//	else
+	//	{
+	//		(*it)->SetColor();
+	//		++it;
+	//	}
+	//}
+	if (player->GetLife() == 0)
+	{
+		FRAMEWORK.SetTimeScale(0);
+		SOUND_MGR.StopAllSfx();
+		SOUND_MGR.StopBgm();
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Game);
+		FRAMEWORK.SetTimeScale(1);
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
+	{
+		hitBoxAct = !hitBoxAct;
 	}
 }
 
