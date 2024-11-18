@@ -145,6 +145,7 @@ void Player::Update(float dt)
 				--life;
 				enemy->ChangeHit(true);
 				damage = 0.f;
+				playerhit = true;
 			}
 		}
 	}
@@ -161,6 +162,14 @@ void Player::Update(float dt)
 	if (level > 10)
 	{
 		level = 10;
+	}
+	if (life == 0)
+	{
+		playerDie = true;
+	}
+	else
+	{
+		playerDie = false;
 	}
 }
 

@@ -53,19 +53,24 @@ void UiHud::Release()
 
 void UiHud::Reset()
 {
-	float textSize = 25.f;
+	float textSize = 30.f;
 	sf::Font& font = FONT_MGR.Get("fonts/TmoneyRoundWindExtraBold.ttf");
 	textScore.setFont(font);
+	textScore.setLetterSpacing(0.2);
 	textScore.setCharacterSize(textSize);
 	textScore.setFillColor(sf::Color::White);
+	textScore.setOutlineColor(sf::Color(Utils::RandomColor()));
+	textScore.setOutlineThickness(2);
 	Utils::SetOrigin(textScore, Origins::TR);
 
 	textHighScore.setFont(font);
+	textHighScore.setLetterSpacing(0.2);
 	textHighScore.setCharacterSize(textSize);
 	textHighScore.setFillColor(sf::Color::White);
 	Utils::SetOrigin(textHighScore, Origins::TR);
 
 	textLife.setFont(font);
+	textLife.setLetterSpacing(0.2);
 	textLife.setCharacterSize(textSize);
 	textLife.setFillColor(sf::Color::White);
 	Utils::SetOrigin(textLife, Origins::TR);
@@ -75,19 +80,30 @@ void UiHud::Reset()
 	textgameOver.setFillColor(sf::Color::White);
 	textgameOver.setOutlineThickness(2);
 	textgameOver.setOutlineColor(sf::Color::Black);
-	Utils::SetOrigin(textLife, Origins::TR);
+	Utils::SetOrigin(textLife, Origins::MC);
 
-	iconLight.setTexture(TEXTURE_MGR.Get("graphics/uilight.png"));
+	blindView.setSize(sf::Vector2f{ 2000,1200 });
+	blindView.setFillColor(sf::Color::Black);
+	Utils::SetOrigin(blindView, Origins::MC);
+
+	iconLight.setTexture(TEXTURE_MGR.Get("graphics/uilightdark.png"));
+	iconLight.setTextureRect(sf::IntRect(0, 0, 64, 82));
+	iconLight.setScale(0.7f, 0.7f);
 	Utils::SetOrigin(iconLight, Origins::BL);
 
 	sf::Vector2f size = FRAMEWORK.GetWindowSizeF();
 
-	textScore.setPosition(track->GetGlobalBounds().width + 80.f, track->GetGlobalBounds().height / 8);
-	textHighScore.setPosition(track->GetGlobalBounds().width + 80.f, track->GetGlobalBounds().height / 8 - (textSize * 2));
-	textLife.setPosition(track->GetGlobalBounds().width + 80.f, track->GetGlobalBounds().height / 2 + (textSize * 12));
-	textgameOver.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.19f, FRAMEWORK.GetWindowSizeF().x * 0.25f);
+	textScore.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - track->GetGlobalBounds().width 
+		- track->GetGlobalBounds().width * 0.6f , track->GetGlobalBounds().height / 8 + (textSize*3));
+	textHighScore.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - track->GetGlobalBounds().width
+		- track->GetGlobalBounds().width * 0.6f, track->GetGlobalBounds().height / 8);
+	textLife.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - track->GetGlobalBounds().width
+		- track->GetGlobalBounds().width * 0.6f, track->GetGlobalBounds().height / 2 + (textSize * 14));
+	textgameOver.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - 175.f,
+		FRAMEWORK.GetWindowSizeF().y * 0.5f - 100.f);
+	blindView.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f, FRAMEWORK.GetWindowSizeF().y * 0.6f);
 
-	iconLight.setPosition(track->GetGlobalBounds().width + 460.f, track->GetGlobalBounds().height / 2);
+	iconLight.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.68f, track->GetGlobalBounds().height / 2);
 
 
 	SetScore(player->GetScore());
@@ -101,6 +117,28 @@ void UiHud::Update(float dt)
 	SetScore(player->GetScore());
 	SetHiScore(player->GetBestScore());
 	SetLife(player->GetLife());
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::V))
+	{
+		light = !light;
+		if (light == true)
+		{
+			iconLight.setTextureRect(sf::IntRect(0, 0, 64, 82));
+		}
+		else
+		{
+			iconLight.setTextureRect(sf::IntRect(64, 0, 64, 82));
+		}
+	}
+	//if (player->GetLife() == 2)
+	//{
+	//	textLife.setColor(sf::Color(255,255,225,155));
+	//}
+	//else if (player->GetLife() == 1)
+	//{
+	//	textLife.setColor(sf::Color(255, 255, 225, 55));
+	//}
+
 }
 
 void UiHud::Draw(sf::RenderWindow& window)
@@ -108,6 +146,10 @@ void UiHud::Draw(sf::RenderWindow& window)
 	window.draw(textScore);
 	window.draw(textHighScore);
 	window.draw(textLife);
+	if (light == false)
+	{
+		window.draw(blindView);
+	}
 	window.draw(iconLight);
 	if (player->GetLife() == 0)
 	{

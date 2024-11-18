@@ -210,3 +210,10 @@ void Scene::SetWorldView(unsigned int width, unsigned int height)
 	//worldView.setCenter(0.f, 0.f);
 	worldView.setSize(newwidth, 1080.f);
 }
+void Scene::SetUiView(unsigned int width, unsigned int height)
+{
+	float ratio = width * 1.f / height;
+	float newwidth = 1080.f * ratio;
+	//worldView.setCenter(0.f, 0.f);
+	worldView.setSize(newwidth, 1080.f);
+}

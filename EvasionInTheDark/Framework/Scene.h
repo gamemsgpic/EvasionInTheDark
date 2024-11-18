@@ -52,5 +52,6 @@ public:
 	sf::Vector2i GetGlobalBounds(sf::Vector2f ScreenPos);
 
 	void SetWorldView(unsigned int width, unsigned int height);
+	void SetUiView(unsigned int width, unsigned int height);
 };
 

@@ -15,8 +15,12 @@ protected:
 	sf::Text textHighScore;
 	sf::Text textLife;
 	sf::Text textgameOver;
+	sf::RectangleShape blindView;
 
 	sf::Sprite iconLight;
+	sf::Sprite gameStart;
+
+	bool light = true;
 public:
 	UiHud(const std::string& name = "");
 	~UiHud() = default;
@@ -38,4 +42,8 @@ public:
 	void SetHiScore(int s);
 	void SetLife(int current);
 	void SetGameOver();
+	void SetScoreOutColor() 
+	{ 
+		textScore.setOutlineColor(sf::Color(Utils::RandomColor())); 
+	}
 };

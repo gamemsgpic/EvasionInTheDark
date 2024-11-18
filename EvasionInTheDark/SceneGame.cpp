@@ -22,6 +22,8 @@ void SceneGame::Init()
 
 	worldView.setSize(FRAMEWORK.GetWindowSizeF());
 	worldView.setCenter(FRAMEWORK.GetWindowSizeF().x * 0.5f, FRAMEWORK.GetWindowSizeF().y * 0.5f);
+	uiView.setSize(FRAMEWORK.GetWindowSizeF());
+	uiView.setCenter(FRAMEWORK.GetWindowSizeF().x * 0.5f, FRAMEWORK.GetWindowSizeF().y * 0.5f);
 
 
 	SoundMgr::Instance().PlayBgm(SOUNDBUFFER_MGR.Get("sound/bgm.wav"), true);
@@ -37,7 +39,7 @@ void SceneGame::Release()
 
 void SceneGame::Enter()
 {
-	
+
 
 	//enemy->ChangeEnemyDie(false);
 	SOUND_MGR.PlayBgm("sound/bgm.wav");
@@ -74,6 +76,7 @@ void SceneGame::Update(float dt)
 	}
 	if (spawnEnemyTime > spawnDelay)
 	{
+		player->ChangePlayerHit(false);
 		SpawnEnemy(Utils::RandomRange(1, 2));
 		spawnEnemyTime = 0.f;
 	}
@@ -81,17 +84,21 @@ void SceneGame::Update(float dt)
 	upScoreTime += dt;
 	for (auto& enemy : enemys)
 	{
-		
+
 		if (enemy->GetPosition().y > FRAMEWORK.GetWindowSizeF().y +
 			enemy->GetGlobalBounds().height + 50.f)
 		{
 			if (enemy->GetHit() == false && upScoreTime > upScoreDelay)
 			{
-				player->SetScore();
-				player->LevelPointUp();
-				sound = SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/scoreup.wav"), false);
-				sound->setVolume(0.5f);
-				upScoreTime = 0.f;
+				if (player->GetPlayerHit() == false)
+				{
+					player->SetScore();
+					player->LevelPointUp();
+					sound = SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/scoreup.wav"), false);
+					sound->setVolume(0.5f);
+					upScoreTime = 0.f;
+					uihud->SetScoreOutColor();
+				}
 			}
 			else
 			{
@@ -132,13 +139,19 @@ void SceneGame::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
-		SCENE_MGR.ChangeScene(SceneIds::Game);
+		SCENE_MGR.ChangeScene(SceneIds::Start);
 		FRAMEWORK.SetTimeScale(1);
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Num2))
 	{
 		hitBoxAct = !hitBoxAct;
 	}
+
+	////TEST
+	//if (InputMgr::GetKeyDown(sf::Keyboard::Num0))
+	//{
+	//	SCENE_MGR.ChangeScene(SceneIds::Start);
+	//}
 }
 
 void SceneGame::LateUpdate(float dt)

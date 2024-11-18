@@ -27,7 +27,7 @@ protected:
 	
 
 	bool playerDie = false;
-	//bool hit = false;
+	bool playerhit = false;
 
 	Track* track;
 	Enemy* enemy;
@@ -56,8 +56,8 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	//void ChangeHit(bool boom) { hit = boom; }
-	//bool GetHit() { return hit; }
+	void ChangePlayerHit(bool boom) { playerhit = boom; }
+	bool GetPlayerHit() { return playerhit; }
 
 	void LifeUp();
 	void LevelPointUp() { ++levelPoint; }

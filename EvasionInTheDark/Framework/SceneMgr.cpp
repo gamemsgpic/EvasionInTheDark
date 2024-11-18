@@ -3,6 +3,7 @@
 #include "SceneDev1.h"
 #include "SceneDev2.h"
 #include "SceneGame.h"
+#include "SceneStart.h"
 
 
 void SceneMgr::Init()
@@ -10,13 +11,14 @@ void SceneMgr::Init()
 	scenes.push_back(new SceneGame());
 	scenes.push_back(new SceneDev1());	
 	scenes.push_back(new SceneDev2());
+	scenes.push_back(new SceneStart());
 
 	for (auto scene : scenes)
 	{
 		scene->Init();
 	}
 
-	currentScene = SceneIds::Game;
+	currentScene = SceneIds::Start;
 	scenes[(int)currentScene]->Enter();
 }
 

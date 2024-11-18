@@ -32,6 +32,7 @@ void Framework::Do()
             if (event.type == sf::Event::Resized)
             {
                 SCENE_MGR.GetCurrentScene()->SetWorldView(event.size.width, event.size.height);
+                SCENE_MGR.GetCurrentScene()->SetUiView(event.size.width, event.size.height);
             }
             InputMgr::UpdateEvent(event);
         }
