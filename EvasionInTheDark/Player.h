@@ -24,6 +24,8 @@ protected:
 	float damage = 3.f;
 	float damageDelay = 3.f;
 
+	
+
 	bool playerDie = false;
 	//bool hit = false;
 
@@ -60,6 +62,7 @@ public:
 	void LifeUp();
 	void LevelPointUp() { ++levelPoint; }
 	void SetScore() { ++score; }
+	int GetLevel() { return level; }
 	int GetScore() { return score; }
 	int GetBestScore() { return bestScore; }
 	int GetLife() { return life; }

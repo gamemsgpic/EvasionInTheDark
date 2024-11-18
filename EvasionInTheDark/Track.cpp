@@ -58,7 +58,7 @@ void Track::Init()
 	sortingOrder = 0;
 
 	SetOrigin(Origins::MC);
-	SetScale({ 1, 1 });
+	//SetScale({ 1, 1 });
 	SetPosition({ FRAMEWORK.GetWindowSizeF().x * 0.5f,
 		FRAMEWORK.GetWindowSizeF().y * 0.5f });
 }
@@ -73,9 +73,9 @@ void Track::Reset()
 
 	body.setTexture(TEXTURE_MGR.Get(textureId), true);
 	SetOrigin(Origins::MC);
-	SetScale({ 1, 1 });
-	SetPosition({ FRAMEWORK.GetWindowSizeF().x * 0.5f,
-		FRAMEWORK.GetWindowSizeF().y * 0.5f });
+	//SetScale({ 1, 1 });
+	SetPosition({ 1920 * 0.5f,
+		1080 * 0.5f });
 }
 
 void Track::Update(float dt)
@@ -122,7 +122,7 @@ void Track::Draw(sf::RenderWindow& window)
 
 void Track::SetRandomColor()
 {
-	body.setColor(sf::Color(Utils::RandomColor()));
+	body.setColor(sf::Color(Utils::RandomRange(50, 255), Utils::RandomRange(50, 255), Utils::RandomRange(50, 255), 255));
 }
 
 void Track::SetColor()

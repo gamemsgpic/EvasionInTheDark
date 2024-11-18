@@ -29,6 +29,10 @@ void Framework::Do()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if (event.type == sf::Event::Resized)
+            {
+                SCENE_MGR.GetCurrentScene()->SetWorldView(event.size.width, event.size.height);
+            }
             InputMgr::UpdateEvent(event);
         }
         InputMgr::Update(deltaTime);

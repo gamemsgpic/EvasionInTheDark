@@ -32,6 +32,9 @@ protected:
 	bool hit = false;
 	bool enemyDie = false;
 
+	float colorChange = 0.f;
+	float changedelay = 0.65f;
+
 
 public:
 	Enemy(const std::string& name = "");
@@ -63,8 +66,9 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+
 	void ChangeHit(bool h) { hit = h; }
 	bool GetHit() { return hit; }
 	void SetType(Types type);
-	void GravityUp() { gravity.y += 50.f; }
+	void GravityUp(float level) { gravity.y += 50.f * level; }
 };

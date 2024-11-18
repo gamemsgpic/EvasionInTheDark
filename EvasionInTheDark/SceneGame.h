@@ -27,6 +27,8 @@ protected:
 	float upScoreTime = 2.f;
 	float upScoreDelay = 2.f;
 
+	
+
 	bool hitBoxAct = false;
 
 public:

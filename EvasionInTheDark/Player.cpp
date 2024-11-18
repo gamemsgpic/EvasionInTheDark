@@ -83,8 +83,8 @@ void Player::Reset()
 	body.setTexture(TEXTURE_MGR.Get(textureId), true);
 	SetOrigin(Origins::MC);
 	SetScale({ 1, 1 });
-	currentPos = { FRAMEWORK.GetWindowSizeF().x * 0.5f,
-		FRAMEWORK.GetWindowSizeF().y - body.getGlobalBounds().height * 0.5f - 20.f };
+	currentPos = { 1920 * 0.5f,
+		1080 - body.getGlobalBounds().height * 0.5f - 20.f };
 	SetPosition(currentPos);
 	hitBox.setOrigin(GetOrigin());
 	hitBox.setPosition(currentPos);
@@ -150,10 +150,17 @@ void Player::Update(float dt)
 	}
 	if (levelPoint >= 10)
 	{
+		if (life < 3)
+		{
+			++life;
+		}
 		++level;
-		enemy->GravityUp();
 		scenegame->SpawnSpeedUp();
 		levelPoint = 0;
+	}
+	if (level > 10)
+	{
+		level = 10;
 	}
 }
 

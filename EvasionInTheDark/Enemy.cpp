@@ -83,6 +83,13 @@ void Enemy::Update(float dt)
 	currentPos = position + gravity * dt;
 	SetPosition(currentPos);
 	enemyHitBox.setPosition(currentPos);
+
+	colorChange += dt;
+	if (colorChange > changedelay)
+	{
+		body.setColor(sf::Color(Utils::RandomColor()));
+		colorChange = 0.f;
+	}
 }
 
 void Enemy::Draw(sf::RenderWindow& window)
@@ -108,7 +115,7 @@ void Enemy::SetType(Types type)
 		enemyHitBox.setOutlineColor(sf::Color::Green);
 		enemyHitBox.setOutlineThickness(2);
 		sound = SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/bass.wav"), true);
-		sound->setVolume(15.f);
+		sound->setVolume(20.f);
 		break;
 	case Types::Castanets:
 		textureId = "graphics/enemycastanets.png";
@@ -119,7 +126,7 @@ void Enemy::SetType(Types type)
 		enemyHitBox.setOutlineColor(sf::Color::Green);
 		enemyHitBox.setOutlineThickness(2);
 		sound = SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/castanets.wav"), true);
-		sound->setVolume(15.f);
+		sound->setVolume(20.f);
 		break;
 	case Types::Drum:
 		textureId = "graphics/enemydrum.png";
@@ -130,7 +137,7 @@ void Enemy::SetType(Types type)
 		enemyHitBox.setOutlineColor(sf::Color::Green);
 		enemyHitBox.setOutlineThickness(2);
 		sound = SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/drum.wav"), true);
-		sound->setVolume(15.f);
+		sound->setVolume(20.f);
 		break;
 	}
 	body.setTexture(TEXTURE_MGR.Get(textureId), true);

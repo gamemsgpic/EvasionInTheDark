@@ -20,6 +20,10 @@ void SceneGame::Init()
 	enemy->SetOrigin(Origins::MC);
 	//enemy->ChangeEnemyDie(false);
 
+	worldView.setSize(FRAMEWORK.GetWindowSizeF());
+	worldView.setCenter(FRAMEWORK.GetWindowSizeF().x * 0.5f, FRAMEWORK.GetWindowSizeF().y * 0.5f);
+
+
 	SoundMgr::Instance().PlayBgm(SOUNDBUFFER_MGR.Get("sound/bgm.wav"), true);
 	SoundMgr::Instance().SetBgmVolume(2.f);
 	SoundMgr::Instance().PlayBgm("sound/bgm.wav");
@@ -33,8 +37,7 @@ void SceneGame::Release()
 
 void SceneGame::Enter()
 {
-	worldView.setSize(FRAMEWORK.GetWindowSizeF());
-	worldView.setCenter(FRAMEWORK.GetWindowSizeF().x * 0.5f, FRAMEWORK.GetWindowSizeF().y * 0.5f);
+	
 
 	//enemy->ChangeEnemyDie(false);
 	SOUND_MGR.PlayBgm("sound/bgm.wav");
@@ -78,6 +81,7 @@ void SceneGame::Update(float dt)
 	upScoreTime += dt;
 	for (auto& enemy : enemys)
 	{
+		
 		if (enemy->GetPosition().y > FRAMEWORK.GetWindowSizeF().y +
 			enemy->GetGlobalBounds().height + 50.f)
 		{
@@ -101,19 +105,25 @@ void SceneGame::Update(float dt)
 		}
 	}
 	//트랙 색상 바꾸는 것
-	//auto it = tracks.begin();
-	//while (it != tracks.end())
-	//{
-	//	if ((*it) == (Track*)player->GetCurrentTrack())
-	//	{
-	//		(*it)->SetRandomColor();
-	//	}
-	//	else
-	//	{
-	//		(*it)->SetColor();
-	//		++it;
-	//	}
-	//}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Left) || InputMgr::GetKeyDown(sf::Keyboard::Right))
+	{
+		auto it = tracks.begin();
+		int count = 0;
+		while (it != tracks.end())
+		{
+			if (count == player->GetCurrentTrack())
+			{
+				(*it)->SetRandomColor();
+			}
+			else
+			{
+				(*it)->SetColor();
+
+			}
+			++count;
+			++it;
+		}
+	}
 	if (player->GetLife() == 0)
 	{
 		FRAMEWORK.SetTimeScale(0);
@@ -148,15 +158,14 @@ void SceneGame::SpawnTrack(int count)
 		Track* track = trackPool.Take();
 		tracks.push_back(track);
 
-		sf::Vector2f pos = { FRAMEWORK.GetWindowSizeF().x * 0.5f,
-			FRAMEWORK.GetWindowSizeF().y * 0.5f };
+		sf::Vector2f pos = track->GetPosition();
 		if (i == 0)
 		{
+			pos.x -= track->GetGlobalBounds().width;
 			track->SetPosition(pos);
 		}
 		if (i == 1)
 		{
-			pos.x -= track->GetGlobalBounds().width;
 			track->SetPosition(pos);
 		}
 		if (i == 2)
@@ -175,6 +184,7 @@ void SceneGame::SpawnEnemy(int count)
 	{
 		Enemy* enemy = enemyPool.Take();
 		enemys.push_back(enemy);
+		enemy->GravityUp(player->GetLevel());
 
 		int ran = Utils::RandomRange(0, Enemy::TotalTypes - 1);
 		Enemy::Types enemyType = (Enemy::Types)ran;
