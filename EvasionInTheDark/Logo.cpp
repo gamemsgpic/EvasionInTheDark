@@ -45,7 +45,7 @@ void Logo::Init()
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 0;
 
-	changeLogoDelay = Utils::RandomRange(3.f, 6.f);
+	changeLogoDelay = Utils::RandomRange(2.f,4.f);
 	changeLogoswitch = Utils::RandomRange(0, 1);
 	
 }
@@ -60,9 +60,10 @@ void Logo::Reset()
 	body.setTexture(TEXTURE_MGR.Get(textureId), true);
 	body.setTextureRect(sf::IntRect(0, 0, 256, 330));
 	Utils::SetOrigin(body, Origins::MC);
-	body.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f , FRAMEWORK.GetWindowSizeF().y * 0.35f);
+	body.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f , FRAMEWORK.GetWindowSizeF().y * 0.8f);
 	body.setScale(1.f, 1.f);
 	body.setRotation(-45.f * angle);
+	body.setOrigin(origin.x + 128.f, origin.y + 660.f);
 }
 
 void Logo::Update(float dt)
@@ -76,7 +77,7 @@ void Logo::Update(float dt)
 		rotation = rotation += dt * Utils::RandomRange(10.f, 50.f);
 	}
 
-	if (rotation < -45.1f || rotation > 45.1f)
+	if ((rotation < -45.f && angledir )||  (rotation > 45.f && !angledir))
 	{ 
 		angledir = !angledir;
 	}
@@ -85,7 +86,7 @@ void Logo::Update(float dt)
 	changeLogo += dt;
 	changeLogoDelay = Utils::RandomRange(3.f, 5.f);
 	changeLogoswitch = Utils::RandomRange(0, 1);
-	float min = 1.2f;
+	float min = 1.f;
 	float diff = 0.3f;
 	body.setScale({ min + diff * sinf(4.0f * Framework::Instance().GetRealTime()), 
 		min + diff * sinf(4.0f * Framework::Instance().GetRealTime()) });

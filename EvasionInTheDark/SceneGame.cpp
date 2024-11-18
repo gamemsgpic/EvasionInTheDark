@@ -70,16 +70,24 @@ void SceneGame::Update(float dt)
 	Scene::Update(dt);
 
 	spawnEnemyTime += dt;
-	if (spawnDelay <= 4.f)
+	if (spawnDelay <= 3.f)
 	{
-		spawnDelay = 4.f;
+		spawnDelay = 3.f;
 	}
-	if (spawnEnemyTime > spawnDelay)
+	if (player->GetSpawnChange() == false && spawnEnemyTime > spawnDelay)
 	{
+
 		player->ChangePlayerHit(false);
 		SpawnEnemy(Utils::RandomRange(1, 2));
 		spawnEnemyTime = 0.f;
+
 	}
+	//else if (player->GetSpawnChange() == true && spawnEnemyTime > spawnDelay)
+	//{
+	//	player->ChangePlayerHit(false);
+	//	SpawnEnemy(2);
+	//	spawnEnemyTime = 0.f;
+	//}
 
 	upScoreTime += dt;
 	for (auto& enemy : enemys)

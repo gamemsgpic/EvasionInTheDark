@@ -102,6 +102,11 @@ void Player::Update(float dt)
 	{
 		bestScore = score;
 	}
+	//if (score > 2)
+	//{
+	//	spawnChange = true;
+	//}
+
 	if (currentTrack < 2)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
@@ -149,7 +154,7 @@ void Player::Update(float dt)
 			}
 		}
 	}
-	if (levelPoint >= 10)
+	if (levelPoint >= 2)
 	{
 		if (life < 3)
 		{
@@ -166,6 +171,7 @@ void Player::Update(float dt)
 	if (life == 0)
 	{
 		playerDie = true;
+		//spawnChange = false;
 	}
 	else
 	{

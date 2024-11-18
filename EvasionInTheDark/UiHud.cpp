@@ -101,7 +101,7 @@ void UiHud::Reset()
 		- track->GetGlobalBounds().width * 0.6f, track->GetGlobalBounds().height / 2 + (textSize * 14));
 	textgameOver.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - 175.f,
 		FRAMEWORK.GetWindowSizeF().y * 0.5f - 100.f);
-	blindView.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f, FRAMEWORK.GetWindowSizeF().y * 0.6f);
+	blindView.setPosition(1920 * 0.5f, 1080 * 0.5f);
 
 	iconLight.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.68f, track->GetGlobalBounds().height / 2);
 

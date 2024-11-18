@@ -28,6 +28,7 @@ protected:
 
 	bool playerDie = false;
 	bool playerhit = false;
+	bool spawnChange = false;
 
 	Track* track;
 	Enemy* enemy;
@@ -58,6 +59,7 @@ public:
 
 	void ChangePlayerHit(bool boom) { playerhit = boom; }
 	bool GetPlayerHit() { return playerhit; }
+	bool GetSpawnChange() { return spawnChange; }
 
 	void LifeUp();
 	void LevelPointUp() { ++levelPoint; }
