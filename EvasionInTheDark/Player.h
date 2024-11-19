@@ -19,7 +19,13 @@ protected:
 	int score = 0;
 	int levelPoint = 0;
 	int level = 0;
-	int bestScore = 0;
+	int easyBestScore = 0;
+	int normalBestScore = 0;
+	int extremeBestScore = 0;
+	int triggerLevelPoint = 0;
+	int maxLevel = 0;
+	int count = 0;
+	int lifeUpTrigger = 0;
 
 	float damage = 3.f;
 	float damageDelay = 3.f;
@@ -29,6 +35,10 @@ protected:
 	bool playerDie = false;
 	bool playerhit = false;
 	bool spawnChange = false;
+
+	bool easy = false;
+	bool normal = false;
+	bool extreme = false;
 
 	Track* track;
 	Enemy* enemy;
@@ -66,6 +76,13 @@ public:
 	void SetScore() { ++score; }
 	int GetLevel() { return level; }
 	int GetScore() { return score; }
-	int GetBestScore() { return bestScore; }
+	int GetBestScore() { return easyBestScore; }
 	int GetLife() { return life; }
+
+	bool GetEasy() { return easy; }
+	bool GetNormal() { return normal; }
+	bool GetExtreme() { return extreme; }
+	void SetEasy(bool e) { easy = e; }
+	void SetNormal(bool n) { normal = n; }
+	void SetExtreme(bool ex) { extreme = ex; }
 };

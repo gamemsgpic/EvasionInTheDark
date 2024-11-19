@@ -1,15 +1,21 @@
 #pragma once
 class SceneStart;
+class Player;
 
 class TitleUi : public GameObject
 {
 protected:
 	SceneStart* scenestart;
+	Player* player;
 
 	sf::Vector2i mousePos;
 
 	sf::Sprite gameStart;
 	std::string textureId = "graphics/title_Start.png";
+	
+	sf::Sprite easy;
+	sf::Sprite normal;
+	sf::Sprite extreme;
 
 	float colorChange = 0.f;
 	float changedelay = 0.5f;

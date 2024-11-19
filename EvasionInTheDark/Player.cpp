@@ -67,6 +67,7 @@ void Player::Init()
 
 	//hit = false;
 
+
 }
 
 void Player::Release()
@@ -93,14 +94,43 @@ void Player::Reset()
 	score = 0;
 	life = 3;
 
+	if (easy == true)
+	{
+		triggerLevelPoint = 5;
+		maxLevel = 8;
+		lifeUpTrigger = 10;
+	}
+	if (normal == true)
+	{
+		triggerLevelPoint = 3;
+		maxLevel = 12;
+		level = 4;
+		lifeUpTrigger = 15;
+	}
+	if (extreme == true)
+	{
+		triggerLevelPoint = 1;
+		maxLevel = 100;
+		level = 8;
+		lifeUpTrigger = 20;
+	}
+
 }
 
 void Player::Update(float dt)
 {
 	damage += dt;
-	if (score > bestScore)
+	if (score > easyBestScore && easy == true)
 	{
-		bestScore = score;
+		easyBestScore = score;
+	}
+	if (score > normalBestScore && normal == true)
+	{
+		normalBestScore = score;
+	}
+	if (score > extremeBestScore && extreme == true)
+	{
+		extremeBestScore = score;
 	}
 	//if (score > 2)
 	//{
@@ -154,19 +184,24 @@ void Player::Update(float dt)
 			}
 		}
 	}
-	if (levelPoint >= 2)
+	if (levelPoint == triggerLevelPoint)
+	{
+		++level;
+		++count;
+		scenegame->SpawnSpeedUp();
+		levelPoint = 0;
+	}
+	if (count == lifeUpTrigger)
 	{
 		if (life < 3)
 		{
 			++life;
+			count = 0;
 		}
-		++level;
-		scenegame->SpawnSpeedUp();
-		levelPoint = 0;
 	}
-	if (level > 10)
+	if (level > maxLevel)
 	{
-		level = 10;
+		level = maxLevel;
 	}
 	if (life == 0)
 	{

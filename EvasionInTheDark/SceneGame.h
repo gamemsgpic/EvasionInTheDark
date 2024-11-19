@@ -23,6 +23,7 @@ protected:
 
 	float spawnEnemyTime = 0.f;
 	float spawnDelay = 5.f;
+	float maxDelay = 0.f;
 
 	float upScoreTime = 2.f;
 	float upScoreDelay = 2.f;

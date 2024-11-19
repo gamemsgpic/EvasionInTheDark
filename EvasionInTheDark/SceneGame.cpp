@@ -68,11 +68,23 @@ void SceneGame::Exit()
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
+	if (player->GetEasy() == true)
+	{
+		maxDelay = 4.f;
+	}
+	if (player->GetNormal() == true)
+	{
+		maxDelay = 2.5f;
+	}
+	if (player->GetExtreme() == true)
+	{
+		maxDelay = 1.5f;
+	}
 
 	spawnEnemyTime += dt;
-	if (spawnDelay <= 3.f)
+	if (spawnDelay <= maxDelay)
 	{
-		spawnDelay = 3.f;
+		spawnDelay = maxDelay;
 	}
 	if (player->GetSpawnChange() == false && spawnEnemyTime > spawnDelay)
 	{
