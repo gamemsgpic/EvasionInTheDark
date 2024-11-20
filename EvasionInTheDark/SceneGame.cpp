@@ -238,20 +238,28 @@ void SceneGame::SpawnEnemy(int count)
 
 		if (ran == 0)
 		{
+			//베이스
 			pos.x -= track->GetGlobalBounds().width;
 			enemy->SetPosition(pos);
 			bassOn = true;
+			instrument->SetPosBass(Utils::RandomRange(1, 2));
 		}
 		if (ran == 1)
 		{
-			pos.x += track->GetGlobalBounds().width;
+			//드럼
 			enemy->SetPosition(pos);
 			drumOn = true;
+			instrument->SetPosDrum(Utils::RandomRange(1, 2));
 		}
 		if (ran == 2)
 		{
+			
+			// 캐스터네츠
+			pos.x += track->GetGlobalBounds().width;
 			enemy->SetPosition(pos);
 			castanetsOn = true;
+			instrument->SetPosCastanets(Utils::RandomRange(1, 2));
+
 		}
 		AddGo(enemy);
 	}

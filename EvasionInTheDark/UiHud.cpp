@@ -86,10 +86,6 @@ void UiHud::Reset()
 	blindView.setFillColor(sf::Color::Black);
 	Utils::SetOrigin(blindView, Origins::MC);
 
-	//test.setSize(sf::Vector2f{ 625, 1080 });
-	//test.setFillColor(sf::Color::Green);
-	//Utils::SetOrigin(blindView, Origins::TL);
-
 	iconLight.setTexture(TEXTURE_MGR.Get("graphics/uilightdark.png"));
 	iconLight.setTextureRect(sf::IntRect(0, 0, 64, 82));
 	iconLight.setScale(0.7f, 0.7f);
@@ -107,7 +103,7 @@ void UiHud::Reset()
 		FRAMEWORK.GetWindowSizeF().y * 0.5f - 100.f);
 	blindView.setPosition(1920 * 0.5f, 1080 * 0.5f);
 	
-	//test.setPosition(1295, 0);
+	
 
 	iconLight.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.68f, track->GetGlobalBounds().height / 2);
 
@@ -161,7 +157,7 @@ void UiHud::Draw(sf::RenderWindow& window)
 	{
 		window.draw(textgameOver);
 	}
-	//window.draw(test);
+	
 }
 
 void UiHud::SetScore(int s)

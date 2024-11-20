@@ -19,10 +19,18 @@ protected:
 	AnimationClip bass;
 	AnimationClip castanets;
 
-	sf::Vector2f direction = { 0.f, 0.f };
-	sf::Vector2f velocity = { 0.f, 0.f };
+	sf::Vector2f direction1 = { 0.f, 0.f };
+	sf::Vector2f direction2 = { 0.f, 0.f };
+	sf::Vector2f direction3 = { 0.f, 0.f };
 
-	float speed = 600.f;
+	sf::RectangleShape test;
+	sf::RectangleShape test2;
+
+	float speed = 500.f;
+
+	int drumPos = 0;
+	int bassPos = 0;
+	int castanetsPos = 0;
 
 public:
 	aniinstrument(const std::string& name = "");
@@ -40,5 +48,9 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void SetPosDrum(int s);
+	void SetPosBass(int s);
+	void SetPosCastanets(int s);
 };
 

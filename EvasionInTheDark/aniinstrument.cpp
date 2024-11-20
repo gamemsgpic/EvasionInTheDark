@@ -55,14 +55,17 @@ void aniinstrument::Init()
 	drumAnimator.SetTarget(&drumBody);
 	bassAnimator.SetTarget(&bassBody);
 	castanetsAnimator.SetTarget(&castanetsBody);
-	
+
+	drumBody.setScale(0.5f, 0.5f);
+	bassBody.setScale(0.7f, 0.7f);
+
 	drumAnimator.SetSpeed(1.f);
 	bassAnimator.SetSpeed(1.f);
 	castanetsAnimator.SetSpeed(1.f);
 
 	std::string sheetId = "graphics/drum_ani.png";
 	{
-		sf::IntRect coord(0, 0, 296, 367);
+		sf::IntRect coord(0, 0, 205, 253);
 
 		drum.loadFromFile("Animations/drum.csv");
 	}
@@ -70,14 +73,22 @@ void aniinstrument::Init()
 	{
 		sf::IntRect coord2(0, 0, 306, 354);
 
-		drum.loadFromFile("Animations/bass.csv");
+		bass.loadFromFile("Animations/bass.csv");
 	}
+
 	//std::string sheetId3 = "graphics/bass_ani.png";
 	//{
 	//	sf::IntRect coord3(0, 0, 296, 367);
 	//
 	//	drum.loadFromFile("Animations/drum.csv");
 	//}
+
+	SetPosDrum(Utils::RandomRange(1, 2));
+	SetPosBass(Utils::RandomRange(1, 2));
+	//SetPosCastanets();
+
+	drumAnimator.Play(&drum);
+	bassAnimator.Play(&bass);
 }
 
 void aniinstrument::Release()
@@ -87,81 +98,161 @@ void aniinstrument::Release()
 void aniinstrument::Reset()
 {
 	sceneGame = dynamic_cast<SceneGame*>(SCENE_MGR.GetCurrentScene());
-	//drumAnimator.Play(&drum);
-	//bassAnimator.Play(&drum);
-	//castanetsAnimator.Play(&drum);
+
 	SetOrigin(Origins::MC);
+
+	float angle1 = Utils::RandomRange(-3.14f, 3.14f) * 3.f / 2.f + Utils::RandomRange(-3.14f, 3.14f) * 0.3f;
+	direction1 = { cos(angle1), sin(angle1) };
+	float angle2 = Utils::RandomRange(-3.14f, 3.14f) * 3.f / 2.f + Utils::RandomRange(-3.14f, 3.14f) * 0.3f;
+	direction2 = { cos(angle2), sin(angle2) };
+	float angle3 = Utils::RandomRange(-3.14f, 3.14f) * 3.f / 2.f + Utils::RandomRange(-3.14f, 3.14f) * 0.3f;
+	direction3 = { cos(angle3), sin(angle3) };
+
+
 }
 
 void aniinstrument::Update(float dt)
 {
+	auto newPos1 = drumBody.getPosition() + direction1 * speed * dt;
+	auto newPos2 = bassBody.getPosition() + direction2 * speed * dt;
+	auto newPos3 = castanetsBody.getPosition() + direction3 * speed * dt;
+	drumBody.setPosition(newPos1);
+	bassBody.setPosition(newPos2);
 	drumAnimator.Update(dt);
 	bassAnimator.Update(dt);
 	//castanetsAnimator.Update(dt);
-	int anispawn = Utils::RandomRange(1, 2);
-	sf::Vector2f pos;
-	if (sceneGame->GetdrumOn() == true && sceneGame->GetSpawnDelay() - 0.5f > sceneGame->GetMaxDelay())
+
+	if (drumPos == 1)
 	{
-		drumAnimator.Play(&drum);
-		if (anispawn == 1 )
+		if (newPos1.y < 0.f + drumBody.getGlobalBounds().height * 0.5f)
 		{
-			pos.x = Utils::RandomRange(0.f + 100.f, 625.f - 100.f);
-			pos.y = Utils::RandomRange(0.f + 100.f, 1080.f - 100.f);
+			newPos1.y = 0.f;
+			newPos1.y += drumBody.getGlobalBounds().height * 0.8f;
+			direction1.y *= -1.f;
 		}
-		else
+		else if (newPos1.y > 1080.f - drumBody.getGlobalBounds().height * 0.5f)
 		{
-			pos.x = Utils::RandomRange(1295.f + 100.f, 1950.f - 100.f);
-			pos.y = Utils::RandomRange(0.f + 100.f, 1080.f - 100.f);
+			newPos1.y = 1080.f;
+			newPos1.y -= drumBody.getGlobalBounds().height * 0.8f;
+			direction1.y *= -1.f;
 		}
-		drumBody.setPosition(pos);
+
+		if (newPos1.x < 0.f + drumBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos1.x = 0.f;
+			newPos1.x += drumBody.getGlobalBounds().width * 0.8f;
+			direction1.x *= -1.f;
+		}
+		else if (newPos1.x > 620.f - drumBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos1.x = 620.f;
+			newPos1.x -= drumBody.getGlobalBounds().width * 0.8f;
+			direction1.x *= -1.f;
+		}
 	}
 	else
 	{
-		drumAnimator.Stop();
+		if (newPos1.y < 0.f + drumBody.getGlobalBounds().height * 0.5f)
+		{
+			newPos1.y = 0;
+			newPos1.y += drumBody.getGlobalBounds().height * 0.8f;
+			direction1.y *= -1.f;
+		}
+		else if (newPos1.y > 1080.f - drumBody.getGlobalBounds().height * 0.5f)
+		{
+			newPos1.y = 1080.f;
+			newPos1.y -= drumBody.getGlobalBounds().height * 0.8f;
+			direction1.y *= -1.f;
+		}
+		if (newPos1.x < 1300.f + drumBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos1.x = 1300.f;
+			newPos1.x += drumBody.getGlobalBounds().width * 0.8f;
+			direction1.x *= -1.f;
+		}
+		else if (newPos1.x > 1920.f - drumBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos1.x = 1920.f;
+			newPos1.x -= drumBody.getGlobalBounds().width * 0.8f;
+			direction1.x *= -1.f;
+		}
+		drumBody.setPosition(newPos1);
 	}
-	if (sceneGame->GetbassOn() == true && sceneGame->GetSpawnDelay() - 0.5f > sceneGame->GetMaxDelay())
+	if (bassPos == 1)
 	{
-		bassAnimator.Play(&bass);
-		if (anispawn == 1)
+		if (newPos2.y < 0.f + bassBody.getGlobalBounds().height * 0.5f)
 		{
-			pos.x = Utils::RandomRange(0.f + 100.f, 625.f - 100.f);
-			pos.y = Utils::RandomRange(0.f + 100.f, 1080.f - 100.f);
+			newPos2.y = 0.f;
+			newPos2.y += bassBody.getGlobalBounds().height * 0.8f;
+			direction2.y *= -1.f;
 		}
-		else
+		else if (newPos2.y > 1080.f - bassBody.getGlobalBounds().height * 0.5f)
 		{
-			pos.x = Utils::RandomRange(1295.f + 100.f, 1950.f - 100.f);
-			pos.y = Utils::RandomRange(0.f + 100.f, 1080.f - 100.f);
+			newPos2.y = 1080.f;
+			newPos2.y -= bassBody.getGlobalBounds().height * 0.8f;
+			direction2.y *= -1.f;
 		}
-		bassBody.setPosition(pos);
+
+		if (newPos2.x < 0.f + bassBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos2.x = 0.f;
+			newPos2.x += bassBody.getGlobalBounds().width * 0.8f;
+			direction2.x *= -1.f;
+		}
+		else if (newPos2.x > 620.f - bassBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos2.x = 620.f;
+			newPos2.x -= bassBody.getGlobalBounds().width * 0.8f;
+			direction2.x *= -1.f;
+		}
 	}
 	else
 	{
-		bassAnimator.Stop();
-	}
-	if (sceneGame->GetcastanetsOn() == true && sceneGame->GetSpawnDelay() - 0.5f > sceneGame->GetMaxDelay())
-	{
-		castanetsAnimator.Play(&castanets);
-		if (anispawn == 1)
+		if (newPos2.y < 0.f + bassBody.getGlobalBounds().height * 0.5f)
 		{
-			pos.x = Utils::RandomRange(0.f + 100.f, 625.f - 100.f);
-			pos.y = Utils::RandomRange(0.f + 100.f, 1080.f - 100.f);
+			newPos2.y = 0.f;
+			newPos2.y += bassBody.getGlobalBounds().height * 0.8f;
+			direction2.y *= -1.f;
 		}
-		else
+		else if (newPos2.y > 1080.f - bassBody.getGlobalBounds().height * 0.5f)
 		{
-			pos.x = Utils::RandomRange(1295.f + 100.f, 1950.f - 100.f);
-			pos.y = Utils::RandomRange(0.f + 100.f, 1080.f - 100.f);
+			newPos2.y = 1080;
+			newPos2.y -= bassBody.getGlobalBounds().height * 0.8f;
+			direction2.y *= -1.f;
 		}
-		castanetsBody.setPosition(pos);
+		if (newPos2.x < 1300.f + bassBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos2.x = 1300.f;
+			newPos2.x += bassBody.getGlobalBounds().width * 0.8f;
+			direction2.x *= -1.f;
+		}
+		else if (newPos2.x > 1920.f - bassBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos2.x = 1920.f;
+			newPos2.x -= bassBody.getGlobalBounds().width * 0.8f;
+			direction2.x *= -1.f;
+		}
+		bassBody.setPosition(newPos2);
 	}
-	else
-	{
-		castanetsAnimator.Stop();
-	}
+	//castanetsBody.setPosition(newPos);
+
+
+	//if (sceneGame->GetcastanetsOn())
+	//{
+	//	castanetsAnimator.Play(&castanets);
+	//	
+	//}
+	//else
+	//{
+	//	castanetsAnimator.Stop();
+	//}
 
 }
 
 void aniinstrument::Draw(sf::RenderWindow& window)
 {
+	window.draw(test);
+	window.draw(test2);
 	if (sceneGame->GetdrumOn() == true)
 	{
 		window.draw(drumBody);
@@ -174,4 +265,59 @@ void aniinstrument::Draw(sf::RenderWindow& window)
 	//{
 	//	window.draw(castanetsBody);
 	//}
+}
+
+void aniinstrument::SetPosDrum(int s)
+{
+	sf::Vector2f pos;
+	if (s == 1)
+	{
+		pos.x = Utils::RandomRange(0.f + 300.f, 620.f - 300.f);
+		pos.y = Utils::RandomRange(0.f + 300.f, 1080.f - 300.f);
+	}
+	else
+	{
+		pos.x = Utils::RandomRange(1300.f + 300.f, 1920.f - 300.f);
+		pos.y = Utils::RandomRange(0.f + 300.f, 1080.f - 300.f);
+	}
+	drumBody.setPosition(pos);
+
+	drumPos = s;
+
+}
+
+void aniinstrument::SetPosBass(int s)
+{
+	sf::Vector2f pos;
+	if (s == 1)
+	{
+		pos.x = Utils::RandomRange(0.f + 300.f, 620.f - 300.f);
+		pos.y = Utils::RandomRange(0.f + 300.f, 1080.f - 300.f);
+	}
+	else
+	{
+		pos.x = Utils::RandomRange(1300.f + 300.f, 1920.f - 300.f);
+		pos.y = Utils::RandomRange(0.f + 300.f, 1080.f - 300.f);
+	}
+	bassBody.setPosition(pos);
+
+	bassPos = s;
+}
+
+void aniinstrument::SetPosCastanets(int s)
+{
+	sf::Vector2f pos;
+	if (s == 1)
+	{
+		pos.x = Utils::RandomRange(0.f + 300.f, 620.f - 300.f);
+		pos.y = Utils::RandomRange(0.f + 300.f, 1080.f - 300.f);
+	}
+	else
+	{
+		pos.x = Utils::RandomRange(1300.f + 300.f, 1920.f - 300.f);
+		pos.y = Utils::RandomRange(0.f + 300.f, 1080.f - 300.f);
+	}
+	castanetsBody.setPosition(pos);
+
+	castanetsPos = s;
 }

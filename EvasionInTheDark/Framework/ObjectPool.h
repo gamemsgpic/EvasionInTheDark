@@ -10,7 +10,7 @@ private:
 public:
 	ObjectPool(int initSize = 10)
 	{
-		for (int i = 0; i < initSize; ++i)
+		for (int i = 0; i < 3; ++i)
 		{
 			auto obj = new T();
 			obj->Init();

@@ -9,8 +9,8 @@ public:
 	enum class Types
 	{
 		Bass,
-		Castanets,
 		Drum,
+		Castanets,
 	};
 
 	static const int TotalTypes = 3;
