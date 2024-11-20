@@ -1,0 +1,9 @@
+ID,FPS,"LoopType(0: single,1: Loop)",,
+bass,10,1,,
+,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/bass_ani.png,0,0,296,367
+graphics/bass_ani.png,296,0,296,367
+graphics/bass_ani.png,592,0,296,367
+graphics/bass_ani.png,888,0,296,367
+graphics/bass_ani.png,1184,0,296,367

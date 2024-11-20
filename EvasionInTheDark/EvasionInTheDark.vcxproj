@@ -148,11 +148,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="aniinstrument.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
     <ClCompile Include="Framework\SoundMgr.cpp" />
     <ClCompile Include="Logo.cpp" />
+    <ClCompile Include="SaveData.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="SceneStart.cpp" />
     <ClCompile Include="TitleUi.cpp" />
     <ClCompile Include="UiHud.cpp" />
@@ -182,6 +186,7 @@
     <ClCompile Include="Track.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aniinstrument.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
     <ClInclude Include="Framework\Animator.h" />
@@ -209,6 +214,9 @@
     <ClInclude Include="Framework\StringTable.h" />
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Logo.h" />
+    <ClInclude Include="SaveData.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="SceneStart.h" />
     <ClInclude Include="TitleUi.h" />
     <ClInclude Include="UiHud.h" />

@@ -37,8 +37,7 @@ void Framework::Do()
             InputMgr::UpdateEvent(event);
         }
         InputMgr::Update(deltaTime);
-        InputMgr::Update(deltaTime);
-        
+        SOUND_MGR.Update(deltaTime);
         SCENE_MGR.Update(deltaTime);
         SCENE_MGR.LateUpdate(deltaTime);
         SCENE_MGR.FixedUpdate(deltaTime);

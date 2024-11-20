@@ -98,20 +98,21 @@ void Player::Reset()
 	{
 		triggerLevelPoint = 5;
 		maxLevel = 8;
+		level = 0;
 		lifeUpTrigger = 10;
 	}
 	if (normal == true)
 	{
 		triggerLevelPoint = 3;
 		maxLevel = 12;
-		level = 4;
+		level = 5;
 		lifeUpTrigger = 15;
 	}
 	if (extreme == true)
 	{
 		triggerLevelPoint = 1;
 		maxLevel = 100;
-		level = 8;
+		level = 10;
 		lifeUpTrigger = 20;
 	}
 
@@ -228,5 +229,21 @@ void Player::LifeUp()
 	if (life < 3)
 	{
 		++life;
+	}
+}
+
+int Player::GetBestScore()
+{
+	if (easy == true)
+	{
+		return easyBestScore;
+	}
+	if (normal == true)
+	{
+		return normalBestScore;
+	}
+	if (extreme == true)
+	{
+		return extremeBestScore;
 	}
 }

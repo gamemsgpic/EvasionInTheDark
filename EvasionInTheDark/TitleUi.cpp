@@ -52,6 +52,29 @@ void TitleUi::Release()
 
 void TitleUi::Reset()
 {
+	float textSize = 18.f;
+	sf::Font& font = FONT_MGR.Get("fonts/TmoneyRoundWindExtraBold.ttf");
+	textEasyBestScore.setFont(font);
+	textEasyBestScore.setLetterSpacing(0.2);
+	textEasyBestScore.setCharacterSize(textSize);
+	textEasyBestScore.setFillColor(sf::Color::White);
+	textEasyBestScore.setOutlineThickness(2);
+	Utils::SetOrigin(textEasyBestScore, Origins::MC);
+
+	textNormalBestScore.setFont(font);
+	textNormalBestScore.setLetterSpacing(0.2);
+	textNormalBestScore.setCharacterSize(textSize);
+	textNormalBestScore.setFillColor(sf::Color::White);
+	textNormalBestScore.setOutlineThickness(2);
+	Utils::SetOrigin(textNormalBestScore, Origins::MC);
+
+	textExtremeBestScore.setFont(font);
+	textExtremeBestScore.setLetterSpacing(0.2);
+	textExtremeBestScore.setCharacterSize(textSize);
+	textExtremeBestScore.setFillColor(sf::Color::White);
+	textExtremeBestScore.setOutlineThickness(2);
+	Utils::SetOrigin(textExtremeBestScore, Origins::MC);
+
 	TEXTURE_MGR.Get(textureId).setSmooth(true);
 	gameStart.setTexture(TEXTURE_MGR.Get(textureId));
 	gameStart.setScale(1.f, 1.f);
@@ -69,6 +92,13 @@ void TitleUi::Reset()
 	extreme.setScale(0.5f, 0.5f);
 	Utils::SetOrigin(extreme, Origins::MC);
 
+
+	textEasyBestScore.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.4f,
+		FRAMEWORK.GetWindowSizeF().y * 0.7f - easy.getGlobalBounds().height + 15.f);
+	textNormalBestScore.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f,
+		FRAMEWORK.GetWindowSizeF().y * 0.7f - easy.getGlobalBounds().height + 15.f);
+	textExtremeBestScore.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.6f,
+		FRAMEWORK.GetWindowSizeF().y * 0.7f - easy.getGlobalBounds().height + 15.f);
 	gameStart.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f,
 		FRAMEWORK.GetWindowSizeF().y * 0.85f);
 	easy.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.4f,
@@ -77,6 +107,10 @@ void TitleUi::Reset()
 		FRAMEWORK.GetWindowSizeF().y * 0.7f);
 	extreme.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.6f,
 		FRAMEWORK.GetWindowSizeF().y * 0.7f);
+
+	SetEasyHiScore(player->GetEasyBestScore());
+	SetNormalHiScore(player->GetNormalBestScore());
+	SetExtremeHiScore(player->GetExtremeBestScore());
 }
 
 void TitleUi::Update(float dt)
@@ -150,4 +184,23 @@ void TitleUi::Draw(sf::RenderWindow& window)
 	window.draw(easy);
 	window.draw(normal);
 	window.draw(extreme);
+	window.draw(textEasyBestScore);
+	window.draw(textNormalBestScore);
+	window.draw(textExtremeBestScore);
+}
+
+void TitleUi::SetEasyHiScore(int s)
+{
+	textEasyBestScore.setString("HI SCORE: " + std::to_string(s));
+	Utils::SetOrigin(textEasyBestScore, Origins::MC);
+}
+void TitleUi::SetNormalHiScore(int s)
+{
+	textNormalBestScore.setString("HI SCORE: " + std::to_string(s));
+	Utils::SetOrigin(textNormalBestScore, Origins::MC);
+}
+void TitleUi::SetExtremeHiScore(int s)
+{
+	textExtremeBestScore.setString("HI SCORE: " + std::to_string(s));
+	Utils::SetOrigin(textExtremeBestScore, Origins::MC);
 }

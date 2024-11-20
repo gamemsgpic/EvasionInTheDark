@@ -17,6 +17,8 @@ protected:
 	sf::Text textgameOver;
 	sf::RectangleShape blindView;
 
+	//sf::RectangleShape test;
+
 	sf::Sprite iconLight;
 	sf::Sprite gameStart;
 

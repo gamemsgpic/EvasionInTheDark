@@ -27,7 +27,7 @@ protected:
 	Track* track;
 	SceneGame* sceneGame;
 
-	sf::Sound* sound;
+	sf::Sound sound;
 
 	bool hit = false;
 	bool enemyDie = false;
@@ -35,7 +35,8 @@ protected:
 	float colorChange = 0.f;
 	float changedelay = 0.65f;
 
-
+	float enemyVolume = 0.f;
+	float globalvolume = 0.f;
 public:
 	Enemy(const std::string& name = "");
 	~Enemy() = default;
@@ -50,7 +51,7 @@ public:
 	void SetHitBoxOrigin(sf::Vector2f& hitorigin);
 	void SetHitBoxPosition(sf::Vector2f& hitposition);
 
-	void SetSoundStop() { sound->stop(); }
+	void SetSoundStop() { sound.stop();	}
 
 	sf::FloatRect GetLocalBounds() const override;
 	sf::FloatRect GetGlobalBounds() const override;

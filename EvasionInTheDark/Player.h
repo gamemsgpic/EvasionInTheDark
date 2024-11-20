@@ -19,19 +19,18 @@ protected:
 	int score = 0;
 	int levelPoint = 0;
 	int level = 0;
-	int easyBestScore = 0;
-	int normalBestScore = 0;
-	int extremeBestScore = 0;
 	int triggerLevelPoint = 0;
 	int maxLevel = 0;
 	int count = 0;
 	int lifeUpTrigger = 0;
 
+	int easyBestScore = 0;
+	int normalBestScore = 0;
+	int extremeBestScore = 0;
+
 	float damage = 3.f;
 	float damageDelay = 3.f;
-
 	
-
 	bool playerDie = false;
 	bool playerhit = false;
 	bool spawnChange = false;
@@ -76,8 +75,12 @@ public:
 	void SetScore() { ++score; }
 	int GetLevel() { return level; }
 	int GetScore() { return score; }
-	int GetBestScore() { return easyBestScore; }
+	int GetBestScore();
 	int GetLife() { return life; }
+
+	int GetEasyBestScore() { return easyBestScore; }
+	int GetNormalBestScore() { return normalBestScore; }
+	int GetExtremeBestScore() { return extremeBestScore; }
 
 	bool GetEasy() { return easy; }
 	bool GetNormal() { return normal; }

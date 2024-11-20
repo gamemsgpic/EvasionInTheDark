@@ -4,6 +4,7 @@
 #include "Track.h"
 #include "Enemy.h"
 #include "UiHud.h"
+#include "aniinstrument.h"
 
 SceneGame::SceneGame() : Scene(SceneIds::Game)
 {
@@ -15,9 +16,11 @@ void SceneGame::Init()
 	track = AddGo(new Track("Track"));
 	enemy = AddGo(new Enemy("Enemy"));
 	uihud = AddGo(new UiHud("UiHud"));
+	instrument = AddGo(new aniinstrument("instrument"));
 	player->SetOrigin(Origins::MC);
 	track->SetOrigin(Origins::MC);
 	enemy->SetOrigin(Origins::MC);
+	instrument->SetOrigin(Origins::MC);
 	//enemy->ChangeEnemyDie(false);
 
 	worldView.setSize(FRAMEWORK.GetWindowSizeF());
@@ -114,8 +117,7 @@ void SceneGame::Update(float dt)
 				{
 					player->SetScore();
 					player->LevelPointUp();
-					sound = SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/scoreup.wav"), false);
-					sound->setVolume(0.5f);
+					SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/scoreup.wav"))->setVolume(0.5f);
 					upScoreTime = 0.f;
 					uihud->SetScoreOutColor();
 				}
@@ -124,6 +126,9 @@ void SceneGame::Update(float dt)
 			{
 				enemy->ChangeHit(false);
 			}
+			drumOn = false;
+			bassOn = false;
+			castanetsOn = false;
 			enemy->SetSoundStop();
 			RemoveGo(enemy);
 			enemyPool.Return(enemy);
@@ -156,6 +161,10 @@ void SceneGame::Update(float dt)
 		FRAMEWORK.SetTimeScale(0);
 		SOUND_MGR.StopAllSfx();
 		SOUND_MGR.StopBgm();
+		for (auto& enemy : enemys)
+		{
+			enemy->SetSoundStop();
+		}
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
@@ -231,15 +240,18 @@ void SceneGame::SpawnEnemy(int count)
 		{
 			pos.x -= track->GetGlobalBounds().width;
 			enemy->SetPosition(pos);
+			bassOn = true;
 		}
 		if (ran == 1)
 		{
 			pos.x += track->GetGlobalBounds().width;
 			enemy->SetPosition(pos);
+			drumOn = true;
 		}
 		if (ran == 2)
 		{
 			enemy->SetPosition(pos);
+			castanetsOn = true;
 		}
 		AddGo(enemy);
 	}

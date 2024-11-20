@@ -5,6 +5,7 @@ class Player;
 class Track;
 class Enemy;
 class UiHud;
+class aniinstrument;
 
 class SceneGame : public Scene
 {
@@ -13,7 +14,9 @@ protected:
 	Track* track;
 	Enemy* enemy;
 	UiHud* uihud;
-	sf::Sound* sound;
+	aniinstrument* instrument;
+
+	sf::Sound sound;
 
 	std::list<Enemy*> enemys;
 	ObjectPool<Enemy> enemyPool;
@@ -25,13 +28,15 @@ protected:
 	float spawnDelay = 5.f;
 	float maxDelay = 0.f;
 
-	float upScoreTime = 2.f;
-	float upScoreDelay = 2.f;
+	float upScoreTime = 0.5f;
+	float upScoreDelay = 0.5f;
 
 	
 
 	bool hitBoxAct = false;
-
+	bool drumOn = false;
+	bool bassOn = false;
+	bool castanetsOn = false;
 public:
 	SceneGame();
 	virtual ~SceneGame() = default;
@@ -50,6 +55,11 @@ public:
 	const std::list<Track*> GetTrackList() { return tracks; }
 
 	bool GetHitBoxAct() { return hitBoxAct; }
+	bool GetdrumOn() { return drumOn; }
+	bool GetbassOn() { return bassOn; }
+	bool GetcastanetsOn() { return castanetsOn; }
+	bool GetSpawnDelay() { return spawnDelay; }
+	bool GetMaxDelay() { return maxDelay; }
 
 	void SpawnTrack(int count);
 	void SpawnEnemy(int count);

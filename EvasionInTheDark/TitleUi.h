@@ -8,6 +8,10 @@ protected:
 	SceneStart* scenestart;
 	Player* player;
 
+	sf::Text textEasyBestScore;
+	sf::Text textNormalBestScore;
+	sf::Text textExtremeBestScore;
+
 	sf::Vector2i mousePos;
 
 	sf::Sprite gameStart;
@@ -35,5 +39,9 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void SetEasyHiScore(int s);
+	void SetNormalHiScore(int s);
+	void SetExtremeHiScore(int s);
 };
 

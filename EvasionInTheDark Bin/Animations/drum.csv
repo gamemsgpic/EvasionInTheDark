@@ -1,0 +1,14 @@
+ID,FPS,"LoopType(0: single,1: Loop)",,
+drum,10,1,,
+,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/drum_ani.png,0,0,306,354
+graphics/drum_ani.png,306,0,306,354
+graphics/drum_ani.png,612,0,306,354
+graphics/drum_ani.png,918,0,306,354
+graphics/drum_ani.png,1224,0,306,354
+graphics/drum_ani.png,1530,0,306,354
+graphics/drum_ani.png,1836,0,306,354
+graphics/drum_ani.png,2142,0,306,354
+graphics/drum_ani.png,2448,0,306,354
+graphics/drum_ani.png,2754,0,306,354
