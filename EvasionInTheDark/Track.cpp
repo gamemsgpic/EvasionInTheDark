@@ -74,8 +74,7 @@ void Track::Reset()
 	body.setTexture(TEXTURE_MGR.Get(textureId), true);
 	SetOrigin(Origins::MC);
 	//SetScale({ 1, 1 });
-	SetPosition({ 1920 * 0.5f,
-		1080 * 0.5f });
+	SetPosition(position);
 }
 
 void Track::Update(float dt)
@@ -125,7 +124,7 @@ void Track::SetRandomColor()
 	body.setColor(sf::Color(Utils::RandomRange(50, 255), Utils::RandomRange(50, 255), Utils::RandomRange(50, 255), 255));
 }
 
-void Track::SetColor()
+void Track::SetWhiteColor()
 {
 	body.setColor(sf::Color::White);
 }

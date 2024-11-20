@@ -11,18 +11,19 @@ class SceneGame : public Scene
 {
 protected:
 	Player* player;
-	Track* track;
+	//Track* track;
+	Track* tracks[3];
 	Enemy* enemy;
 	UiHud* uihud;
-	aniinstrument* instrument;
+	aniinstrument* aniInstrument;
 
 	sf::Sound sound;
 
 	std::list<Enemy*> enemys;
 	ObjectPool<Enemy> enemyPool;
 
-	std::list<Track*> tracks;
-	ObjectPool<Track> trackPool;
+	//std::list<Track*> tracks;
+	//ObjectPool<Track> trackPool;
 
 	float spawnEnemyTime = 0.f;
 	float spawnDelay = 5.f;
@@ -52,7 +53,7 @@ public:
 	void FixedUpdate(float dt);
 
 	const std::list<Enemy*> GetEnemyList() { return enemys; }
-	const std::list<Track*> GetTrackList() { return tracks; }
+	//const std::list<Track*> GetTrackList() { return tracks; }
 
 	bool GetHitBoxAct() { return hitBoxAct; }
 	bool GetdrumOn() { return drumOn; }

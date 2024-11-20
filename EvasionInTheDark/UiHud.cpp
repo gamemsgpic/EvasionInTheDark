@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "UiHud.h"
 #include "SceneGame.h"
-#include "Track.h"
 #include "Player.h"
+//#include "Track.h"
 
 UiHud::UiHud(const std::string& name)
 	: GameObject(name)
@@ -43,7 +43,7 @@ void UiHud::Init()
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 0;
 
-	track = dynamic_cast<Track*>(SCENE_MGR.GetCurrentScene()->FindGo("Track"));
+	//track = dynamic_cast<Track*>(SCENE_MGR.GetCurrentScene()->FindGo("Track"));
 	player = dynamic_cast<Player*>(SCENE_MGR.GetCurrentScene()->FindGo("Player"));
 }
 
@@ -88,24 +88,24 @@ void UiHud::Reset()
 
 	iconLight.setTexture(TEXTURE_MGR.Get("graphics/uilightdark.png"));
 	iconLight.setTextureRect(sf::IntRect(0, 0, 64, 82));
-	iconLight.setScale(0.7f, 0.7f);
+	iconLight.setScale(0.9f, 0.9f);
 	Utils::SetOrigin(iconLight, Origins::BL);
 
 	sf::Vector2f size = FRAMEWORK.GetWindowSizeF();
 
-	textScore.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - track->GetGlobalBounds().width
-		- track->GetGlobalBounds().width * 0.6f, track->GetGlobalBounds().height / 8 + (textSize * 3));
-	textHighScore.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - track->GetGlobalBounds().width
-		- track->GetGlobalBounds().width * 0.6f, track->GetGlobalBounds().height / 8);
-	textLife.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - track->GetGlobalBounds().width
-		- track->GetGlobalBounds().width * 0.6f, track->GetGlobalBounds().height / 2 + (textSize * 14));
+	textScore.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - 220.f
+		- 220.f * 0.6f, 1080.f / 8 + (textSize * 3));
+	textHighScore.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - 220.f
+		- 220.f * 0.6f, 1080.f / 8);
+	textLife.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - 220.f
+		- 220.f * 0.6f, 1080.f / 2 + (textSize * 14));
 	textgameOver.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.5f - 175.f,
 		FRAMEWORK.GetWindowSizeF().y * 0.5f - 100.f);
 	blindView.setPosition(1920 * 0.5f, 1080 * 0.5f);
 	
 	
 
-	iconLight.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.68f, track->GetGlobalBounds().height / 2);
+	iconLight.setPosition(FRAMEWORK.GetWindowSizeF().x * 0.68f, 1080.f / 2);
 
 
 	SetScore(player->GetScore());

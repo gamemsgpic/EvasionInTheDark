@@ -11,6 +11,7 @@ protected:
 	sf::Sprite drumBody;
 	sf::Sprite bassBody;
 	sf::Sprite castanetsBody;
+
 	Animator drumAnimator;
 	Animator bassAnimator;
 	Animator castanetsAnimator;
@@ -27,6 +28,14 @@ protected:
 	sf::RectangleShape test2;
 
 	float speed = 500.f;
+
+	float colorChangeTrigger = 0;
+	float colorChangeDelay = 0.5f;
+
+	float crashTrigger1 = 0.f;
+	float crashTrigger2 = 0.f;
+	float crashTrigger3 = 0.f;
+	float crashDelay = 0.25f;
 
 	int drumPos = 0;
 	int bassPos = 0;

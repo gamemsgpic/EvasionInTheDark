@@ -112,7 +112,7 @@ void Player::Reset()
 	{
 		triggerLevelPoint = 1;
 		maxLevel = 100;
-		level = 10;
+		level = 18;
 		lifeUpTrigger = 20;
 	}
 
@@ -142,7 +142,7 @@ void Player::Update(float dt)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Right))
 		{
-			currentPos.x += track->GetGlobalBounds().width;
+			currentPos.x += 220.f;
 			SetPosition(currentPos);
 			++currentTrack;
 		}
@@ -152,7 +152,7 @@ void Player::Update(float dt)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Left))
 		{
-			currentPos.x -= track->GetGlobalBounds().width;
+			currentPos.x -= 220.f;
 			SetPosition(currentPos);
 			--currentTrack;
 		}

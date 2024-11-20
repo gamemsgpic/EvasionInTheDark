@@ -1,14 +1,14 @@
 #pragma once
 
 class SceneGame;
-class Track;
+//class Track;
 class Player;
 
 class UiHud : public GameObject
 {
 protected:
 	SceneGame* sceneGame;
-	Track* track;
+	//Track* track;
 	Player* player;
 
 	sf::Text textScore;

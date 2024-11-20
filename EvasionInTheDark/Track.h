@@ -38,6 +38,6 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetRandomColor();
-	void SetColor();
+	void SetWhiteColor();
 
 };

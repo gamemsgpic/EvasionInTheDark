@@ -13,14 +13,17 @@ SceneGame::SceneGame() : Scene(SceneIds::Game)
 void SceneGame::Init()
 {
 	player = AddGo(new Player("Player"));
-	track = AddGo(new Track("Track"));
+	//track = AddGo(new Track("Track"));
+	tracks[0] = AddGo(new Track("Track"));
+	tracks[1] = AddGo(new Track("Track"));
+	tracks[2] = AddGo(new Track("Track"));
 	enemy = AddGo(new Enemy("Enemy"));
 	uihud = AddGo(new UiHud("UiHud"));
-	instrument = AddGo(new aniinstrument("instrument"));
+	aniInstrument = AddGo(new aniinstrument("instrument"));
 	player->SetOrigin(Origins::MC);
-	track->SetOrigin(Origins::MC);
+	//track->SetOrigin(Origins::MC);
 	enemy->SetOrigin(Origins::MC);
-	instrument->SetOrigin(Origins::MC);
+	aniInstrument->SetOrigin(Origins::MC);
 	//enemy->ChangeEnemyDie(false);
 
 	worldView.setSize(FRAMEWORK.GetWindowSizeF());
@@ -53,12 +56,12 @@ void SceneGame::Enter()
 
 void SceneGame::Exit()
 {
-	for (auto track : tracks)
-	{
-		RemoveGo(track);
-		trackPool.Return(track);
-	}
-	tracks.clear();
+	//for (auto track : tracks)
+	//{
+	//	RemoveGo(track);
+	//	trackPool.Return(track);
+	//}
+	//tracks.clear();
 	for (auto enemy : enemys)
 	{
 		RemoveGo(enemy);
@@ -139,21 +142,23 @@ void SceneGame::Update(float dt)
 	//트랙 색상 바꾸는 것
 	if (InputMgr::GetKeyDown(sf::Keyboard::Left) || InputMgr::GetKeyDown(sf::Keyboard::Right))
 	{
-		auto it = tracks.begin();
-		int count = 0;
-		while (it != tracks.end())
+		if (player->GetCurrentTrack() == 0)
 		{
-			if (count == player->GetCurrentTrack())
-			{
-				(*it)->SetRandomColor();
-			}
-			else
-			{
-				(*it)->SetColor();
-
-			}
-			++count;
-			++it;
+			tracks[0]->SetRandomColor();
+			tracks[1]->SetWhiteColor();
+			tracks[2]->SetWhiteColor();
+		}
+		else if (player->GetCurrentTrack() == 1)
+		{
+			tracks[1]->SetRandomColor();
+			tracks[0]->SetWhiteColor();
+			tracks[2]->SetWhiteColor();
+		}
+		else if (player->GetCurrentTrack() == 2)
+		{
+			tracks[2]->SetRandomColor();
+			tracks[0]->SetWhiteColor();
+			tracks[1]->SetWhiteColor();
 		}
 	}
 	if (player->GetLife() == 0)
@@ -197,69 +202,84 @@ void SceneGame::SpawnTrack(int count)
 {
 	for (int i = 0; i < count; ++i)
 	{
-		Track* track = trackPool.Take();
-		tracks.push_back(track);
-
-		sf::Vector2f pos = track->GetPosition();
 		if (i == 0)
 		{
-			pos.x -= track->GetGlobalBounds().width;
-			track->SetPosition(pos);
+			tracks[0]->SetPosition({ 740.f, 540.f });
 		}
 		if (i == 1)
 		{
-			track->SetPosition(pos);
+			tracks[1]->SetPosition({ 960.f, 540.f });
 		}
 		if (i == 2)
 		{
-			pos.x += track->GetGlobalBounds().width;
-			track->SetPosition(pos);
+			tracks[2]->SetPosition({ 1180.f, 540.f });
 		}
-		AddGo(track);
 	}
+	//for (int i = 0; i < count; ++i)
+	//{
+	//	Track* track = trackPool.Take();
+	//	tracks.push_back(track);
+	//
+	//	sf::Vector2f pos = track->GetPosition();
+	//	if (i == 0)
+	//	{
+	//		pos.x -= track->GetGlobalBounds().width;
+	//		track->SetPosition(pos);
+	//	}
+	//	if (i == 1)
+	//	{
+	//		track->SetPosition(pos);
+	//	}
+	//	if (i == 2)
+	//	{
+	//		pos.x += track->GetGlobalBounds().width;
+	//		track->SetPosition(pos);
+	//	}
+	//	AddGo(track);
+	//}
 }
 
 void SceneGame::SpawnEnemy(int count)
 {
-
+	
 	for (int i = 0; i < count; ++i)
 	{
 		Enemy* enemy = enemyPool.Take();
 		enemys.push_back(enemy);
 		enemy->GravityUp(player->GetLevel());
-
+	
 		int ran = Utils::RandomRange(0, Enemy::TotalTypes - 1);
 		Enemy::Types enemyType = (Enemy::Types)ran;
 		enemy->SetType(enemyType);
-
+	
 		enemy->SetOrigin(Origins::MC);
 		sf::Vector2f pos = { FRAMEWORK.GetWindowSizeF().x * 0.5f,
 			0 - enemy->GetGlobalBounds().height - 50.f };
-
+	
 		if (ran == 0)
 		{
 			//베이스
-			pos.x -= track->GetGlobalBounds().width;
+			pos.x -= 220.f;
 			enemy->SetPosition(pos);
 			bassOn = true;
-			instrument->SetPosBass(Utils::RandomRange(1, 2));
+			aniInstrument->SetPosBass(Utils::RandomRange(1, 2));
 		}
 		if (ran == 1)
 		{
 			//드럼
 			enemy->SetPosition(pos);
 			drumOn = true;
-			instrument->SetPosDrum(Utils::RandomRange(1, 2));
+			aniInstrument->SetPosDrum(Utils::RandomRange(1, 2));
 		}
 		if (ran == 2)
 		{
 			
 			// 캐스터네츠
-			pos.x += track->GetGlobalBounds().width;
+			pos.x += 220.f;
 			enemy->SetPosition(pos);
 			castanetsOn = true;
-			instrument->SetPosCastanets(Utils::RandomRange(1, 2));
-
+			aniInstrument->SetPosCastanets(Utils::RandomRange(1, 2));
+	
 		}
 		AddGo(enemy);
 	}

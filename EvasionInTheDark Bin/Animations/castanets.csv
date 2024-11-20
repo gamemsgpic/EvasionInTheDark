@@ -1,0 +1,8 @@
+ID,FPS,"LoopType(0: single,1: Loop)",,
+castanets,10,1,,
+,,,,
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT
+graphics/castanets_ani.png,0,0,256,335
+graphics/castanets_ani.png,256,0,256,335
+graphics/castanets_ani.png,512,0,256,335
+graphics/castanets_ani.png,768,0,256,335

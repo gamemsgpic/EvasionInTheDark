@@ -58,6 +58,7 @@ void aniinstrument::Init()
 
 	drumBody.setScale(0.5f, 0.5f);
 	bassBody.setScale(0.7f, 0.7f);
+	castanetsBody.setScale(0.5f, 0.5f);
 
 	drumAnimator.SetSpeed(1.f);
 	bassAnimator.SetSpeed(1.f);
@@ -76,19 +77,20 @@ void aniinstrument::Init()
 		bass.loadFromFile("Animations/bass.csv");
 	}
 
-	//std::string sheetId3 = "graphics/bass_ani.png";
-	//{
-	//	sf::IntRect coord3(0, 0, 296, 367);
-	//
-	//	drum.loadFromFile("Animations/drum.csv");
-	//}
+	std::string sheetId3 = "graphics/castanets_ani.png";
+	{
+		sf::IntRect coord3(0, 0, 256, 335);
+	
+		castanets.loadFromFile("Animations/castanets.csv");
+	}
 
 	SetPosDrum(Utils::RandomRange(1, 2));
 	SetPosBass(Utils::RandomRange(1, 2));
-	//SetPosCastanets();
+	SetPosCastanets(Utils::RandomRange(1, 2));
 
 	drumAnimator.Play(&drum);
 	bassAnimator.Play(&bass);
+	castanetsAnimator.Play(&castanets);
 }
 
 void aniinstrument::Release()
@@ -118,11 +120,25 @@ void aniinstrument::Update(float dt)
 	auto newPos3 = castanetsBody.getPosition() + direction3 * speed * dt;
 	drumBody.setPosition(newPos1);
 	bassBody.setPosition(newPos2);
+	castanetsBody.setPosition(newPos3);
 	drumAnimator.Update(dt);
 	bassAnimator.Update(dt);
-	//castanetsAnimator.Update(dt);
+	castanetsAnimator.Update(dt);
 
-	if (drumPos == 1)
+	colorChangeTrigger += dt;
+	crashTrigger1 += dt;
+	crashTrigger2 += dt;
+	crashTrigger3 += dt;
+	
+	if (colorChangeTrigger > colorChangeDelay)
+	{
+		drumBody.setColor(Utils::RandomColor());
+		bassBody.setColor(Utils::RandomColor());
+		castanetsBody.setColor(Utils::RandomColor());
+		colorChangeTrigger = 0.f;
+	}
+
+	if (drumPos == 1 && crashTrigger1 > crashDelay)
 	{
 		if (newPos1.y < 0.f + drumBody.getGlobalBounds().height * 0.5f)
 		{
@@ -178,7 +194,8 @@ void aniinstrument::Update(float dt)
 		}
 		drumBody.setPosition(newPos1);
 	}
-	if (bassPos == 1)
+
+	if (bassPos == 1 && crashTrigger1 > crashDelay)
 	{
 		if (newPos2.y < 0.f + bassBody.getGlobalBounds().height * 0.5f)
 		{
@@ -234,19 +251,63 @@ void aniinstrument::Update(float dt)
 		}
 		bassBody.setPosition(newPos2);
 	}
-	//castanetsBody.setPosition(newPos);
 
+	if (castanetsPos == 1 && crashTrigger1 > crashDelay)
+	{
+		if (newPos3.y < 0.f + castanetsBody.getGlobalBounds().height * 0.5f)
+		{
+			newPos3.y = 0.f;
+			newPos3.y += castanetsBody.getGlobalBounds().height * 0.8f;
+			direction3.y *= -1.f;
+		}
+		else if (newPos3.y > 1080.f - castanetsBody.getGlobalBounds().height * 0.5f)
+		{
+			newPos3.y = 1080.f;
+			newPos3.y -= castanetsBody.getGlobalBounds().height * 0.8f;
+			direction3.y *= -1.f;
+		}
 
-	//if (sceneGame->GetcastanetsOn())
-	//{
-	//	castanetsAnimator.Play(&castanets);
-	//	
-	//}
-	//else
-	//{
-	//	castanetsAnimator.Stop();
-	//}
-
+		if (newPos3.x < 0.f + castanetsBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos3.x = 0.f;
+			newPos3.x += castanetsBody.getGlobalBounds().width * 0.8f;
+			direction3.x *= -1.f;
+		}
+		else if (newPos3.x > 620.f - castanetsBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos3.x = 620.f;
+			newPos3.x -= castanetsBody.getGlobalBounds().width * 0.8f;
+			direction3.x *= -1.f;
+		}
+	}
+	else
+	{
+		if (newPos3.y < 0.f + castanetsBody.getGlobalBounds().height * 0.5f)
+		{
+			newPos3.y = 0.f;
+			newPos3.y += castanetsBody.getGlobalBounds().height * 0.8f;
+			direction3.y *= -1.f;
+		}
+		else if (newPos3.y > 1080.f - castanetsBody.getGlobalBounds().height * 0.5f)
+		{
+			newPos3.y = 1080;
+			newPos3.y -= castanetsBody.getGlobalBounds().height * 0.8f;
+			direction3.y *= -1.f;
+		}
+		if (newPos3.x < 1300.f + castanetsBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos3.x = 1300.f;
+			newPos3.x += castanetsBody.getGlobalBounds().width * 0.8f;
+			direction3.x *= -1.f;
+		}
+		else if (newPos3.x > 1920.f - castanetsBody.getGlobalBounds().width * 0.5f)
+		{
+			newPos3.x = 1920.f;
+			newPos3.x -= castanetsBody.getGlobalBounds().width * 0.8f;
+			direction3.x *= -1.f;
+		}
+		castanetsBody.setPosition(newPos3);
+	}
 }
 
 void aniinstrument::Draw(sf::RenderWindow& window)
@@ -261,10 +322,10 @@ void aniinstrument::Draw(sf::RenderWindow& window)
 	{
 		window.draw(bassBody);
 	}
-	//if (sceneGame->GetcastanetsOn() == true)
-	//{
-	//	window.draw(castanetsBody);
-	//}
+	if (sceneGame->GetcastanetsOn() == true)
+	{
+		window.draw(castanetsBody);
+	}
 }
 
 void aniinstrument::SetPosDrum(int s)
