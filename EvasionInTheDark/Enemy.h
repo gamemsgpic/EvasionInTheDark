@@ -22,6 +22,9 @@ protected:
 	sf::Vector2f currentPos;
 	sf::Vector2f gravity = { 0.f, 500.f };
 
+	float maxVolum;
+	float currentVolum;
+
 	sf::CircleShape enemyHitBox;
 
 	Track* track;

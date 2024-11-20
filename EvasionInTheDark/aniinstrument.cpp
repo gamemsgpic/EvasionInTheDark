@@ -56,9 +56,9 @@ void aniinstrument::Init()
 	bassAnimator.SetTarget(&bassBody);
 	castanetsAnimator.SetTarget(&castanetsBody);
 
-	drumBody.setScale(0.5f, 0.5f);
-	bassBody.setScale(0.7f, 0.7f);
-	castanetsBody.setScale(0.5f, 0.5f);
+	drumBody.setScale(0.6f, 0.6f);
+	bassBody.setScale(0.8f, 0.8f);
+	castanetsBody.setScale(0.6f, 0.6f);
 
 	drumAnimator.SetSpeed(1.f);
 	bassAnimator.SetSpeed(1.f);

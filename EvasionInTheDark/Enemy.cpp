@@ -67,7 +67,11 @@ void Enemy::Init()
 	sortingOrder = 1;
 
 	globalvolume = SOUND_MGR.GetSfxVolume();
-	enemyVolume = 25.f * globalvolume / 100;
+
+	maxVolum = 30.f;
+	currentVolum = maxVolum * 0.2f;
+	enemyVolume = currentVolum;
+	// enemyVolume =  * globalvolume / 100;
 }
 
 void Enemy::Release()
@@ -84,6 +88,12 @@ void Enemy::Reset()
 void Enemy::Update(float dt)
 {
 	currentPos = position + gravity * dt;
+
+
+	// enemyVolume = currentVolum;
+
+	sound.setVolume(currentVolum + currentVolum * position.y * 0.01f);
+
 	SetPosition(currentPos);
 	enemyHitBox.setPosition(currentPos);
 
