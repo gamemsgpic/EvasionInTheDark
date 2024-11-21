@@ -132,6 +132,7 @@ void SceneGame::Update(float dt)
 			drumOn = false;
 			bassOn = false;
 			castanetsOn = false;
+			enemy->SetSoundVolume();
 			enemy->SetSoundStop();
 			RemoveGo(enemy);
 			enemyPool.Return(enemy);
@@ -254,7 +255,7 @@ void SceneGame::SpawnEnemy(int count)
 	
 		enemy->SetOrigin(Origins::MC);
 		sf::Vector2f pos = { FRAMEWORK.GetWindowSizeF().x * 0.5f,
-			0 - enemy->GetGlobalBounds().height - 50.f };
+			0 - enemy->GetGlobalBounds().height - 300.f };
 	
 		if (ran == 0)
 		{

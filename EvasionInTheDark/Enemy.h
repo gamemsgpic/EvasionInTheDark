@@ -55,6 +55,7 @@ public:
 	void SetHitBoxPosition(sf::Vector2f& hitposition);
 
 	void SetSoundStop() { sound.stop();	}
+	void SetSoundVolume() { sound.setVolume(0); }
 
 	sf::FloatRect GetLocalBounds() const override;
 	sf::FloatRect GetGlobalBounds() const override;

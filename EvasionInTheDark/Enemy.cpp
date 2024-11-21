@@ -66,12 +66,15 @@ void Enemy::Init()
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 1;
 
+	float connect = 0;
 	globalvolume = SOUND_MGR.GetSfxVolume();
-
-	maxVolum = 30.f;
+	connect = 28.f * globalvolume / 100;
+	maxVolum = connect;
 	currentVolum = maxVolum * 0.2f;
 	enemyVolume = currentVolum;
 	// enemyVolume =  * globalvolume / 100;
+
+	sound.setPitch(1.5f);
 }
 
 void Enemy::Release()
@@ -90,9 +93,15 @@ void Enemy::Update(float dt)
 	currentPos = position + gravity * dt;
 
 
-	// enemyVolume = currentVolum;
+	enemyVolume = currentVolum + currentVolum * position.y * 0.005f;
 
-	sound.setVolume(currentVolum + currentVolum * position.y * 0.01f);
+	if (enemyVolume > maxVolum)
+	{
+		enemyVolume = maxVolum;
+	}
+
+
+	sound.setVolume(enemyVolume);
 
 	SetPosition(currentPos);
 	enemyHitBox.setPosition(currentPos);
@@ -101,7 +110,7 @@ void Enemy::Update(float dt)
 	if (colorChange > changedelay)
 	{
 		body.setColor(sf::Color(Utils::RandomColor()));
-		colorChange = 0.f; 
+		colorChange = 0.f;
 	}
 }
 
