@@ -68,9 +68,9 @@ void Enemy::Init()
 
 	float connect = 0;
 	globalvolume = SOUND_MGR.GetSfxVolume();
-	connect = 28.f * globalvolume / 100;
+	connect = 25.f * globalvolume / 100;
 	maxVolum = connect;
-	currentVolum = maxVolum * 0.1f;
+	currentVolum = maxVolum * 0.15f;
 	enemyVolume = currentVolum;
 	
 	// enemyVolume =  * globalvolume / 100;
