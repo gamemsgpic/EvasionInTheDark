@@ -93,7 +93,7 @@ void Enemy::Update(float dt)
 {
 	currentPos = position + gravity * dt;
 
-	float volumePositionY = 900 - -384;
+	float volumePositionY = 700 - -384;
 
 	enemyVolume = currentVolum + currentVolum * position.y * (position.y / volumePositionY) * 0.05f;
 

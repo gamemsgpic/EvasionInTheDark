@@ -132,9 +132,9 @@ void SceneGame::Update(float dt)
 			drumOn = false;
 			bassOn = false;
 			castanetsOn = false;
+			enemy->SetSoundVolume();
 			enemy->SetSoundStop();
 			RemoveGo(enemy);
-			enemy->SetSoundVolume();
 			enemyPool.Return(enemy);
 			enemys.remove(enemy);
 			break;
