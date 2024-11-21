@@ -50,6 +50,10 @@ void SceneStart::Update(float dt)
 	{
 		SCENE_MGR.ChangeScene(SceneIds::Game);
 	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Num8))
+	{
+		SCENE_MGR.ChangeScene(SceneIds::Tuto);
+	}
 }
 
 void SceneStart::LateUpdate(float dt)

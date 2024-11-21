@@ -159,6 +159,8 @@
     </ClCompile>
     <ClCompile Include="SceneStart.cpp" />
     <ClCompile Include="TitleUi.cpp" />
+    <ClCompile Include="TutorialScene.cpp" />
+    <ClCompile Include="TutoUi.cpp" />
     <ClCompile Include="UiHud.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Framework\DataTable.cpp" />
@@ -219,6 +221,8 @@
     </ClInclude>
     <ClInclude Include="SceneStart.h" />
     <ClInclude Include="TitleUi.h" />
+    <ClInclude Include="TutorialScene.h" />
+    <ClInclude Include="TutoUi.h" />
     <ClInclude Include="UiHud.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="Framework\Variables.h" />

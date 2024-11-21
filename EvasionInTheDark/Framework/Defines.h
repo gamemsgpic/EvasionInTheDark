@@ -22,6 +22,7 @@ enum class SceneIds
 	Dev1,
 	Dev2,
 	Start,
+	Tuto,
 	Count,
 };
 
