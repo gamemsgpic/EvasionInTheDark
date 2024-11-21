@@ -6,6 +6,7 @@ class TutorialScene : public Scene
 protected:
 	TutoUi* tutoUi;
 
+
 public:
 	TutorialScene();
 	virtual ~TutorialScene() = default;
@@ -19,5 +20,6 @@ public:
 	void Update(float dt);
 	void LateUpdate(float dt);
 	void FixedUpdate(float dt);
+
 };
 

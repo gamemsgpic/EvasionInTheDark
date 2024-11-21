@@ -1,8 +1,10 @@
 #pragma once
 
+
 class TutoUi : public GameObject
 {
 protected:
+
 	sf::Sprite body;
 
 	int tutoIndex = 0;
@@ -10,6 +12,17 @@ protected:
 	sf::Text text1;
 	sf::Text text2;
 	sf::Text text3;
+
+	sf::Sound sound;
+
+	bool bassPlay = true;
+	bool drumPlay = true;
+	bool castanetsPlay = true;
+
+	float soundTrigger1 = 5.f;
+	float soundTrigger2 = 5.f;
+	float soundTrigger3 = 5.f;
+	float soundDelay = 5.f;
 
 public:
 	TutoUi(const std::string& name = "");
@@ -27,5 +40,9 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void PlayBass();
+	void PlayDrum();
+	void PlayCastanets();
 };
 
