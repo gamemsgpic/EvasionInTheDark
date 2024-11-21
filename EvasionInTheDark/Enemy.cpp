@@ -70,8 +70,9 @@ void Enemy::Init()
 	globalvolume = SOUND_MGR.GetSfxVolume();
 	connect = 28.f * globalvolume / 100;
 	maxVolum = connect;
-	currentVolum = maxVolum * 0.2f;
+	currentVolum = maxVolum * 0.1f;
 	enemyVolume = currentVolum;
+	
 	// enemyVolume =  * globalvolume / 100;
 
 	sound.setPitch(1.5f);
@@ -92,7 +93,9 @@ void Enemy::Update(float dt)
 {
 	currentPos = position + gravity * dt;
 
-	enemyVolume = currentVolum + currentVolum * position.y * 0.005f;
+	float volumePositionY = 900 - -384;
+
+	enemyVolume = currentVolum + currentVolum * position.y * (position.y / volumePositionY) * 0.05f;
 
 	if (enemyVolume > maxVolum)
 	{
