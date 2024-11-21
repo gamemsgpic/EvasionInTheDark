@@ -150,6 +150,16 @@ void TitleUi::Update(float dt)
 			extreme.setColor(sf::Color::White);
 		}
 	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad1))
+	{
+		player->SetEasy(true);
+		player->SetNormal(false);
+		player->SetExtreme(false);
+		easy.setColor(sf::Color(Utils::RandomColor()));
+		normal.setColor(sf::Color::White);
+		extreme.setColor(sf::Color::White);
+	}
+
 	if (normal.getGlobalBounds().contains(pos))
 	{
 
@@ -163,6 +173,16 @@ void TitleUi::Update(float dt)
 			extreme.setColor(sf::Color::White);
 		}
 	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad2))
+	{
+		player->SetEasy(false);
+		player->SetNormal(true);
+		player->SetExtreme(false);
+		normal.setColor(sf::Color(Utils::RandomColor()));
+		easy.setColor(sf::Color::White);
+		extreme.setColor(sf::Color::White);
+	}
+
 	if (extreme.getGlobalBounds().contains(pos))
 	{
 
@@ -175,6 +195,15 @@ void TitleUi::Update(float dt)
 			easy.setColor(sf::Color::White);
 			normal.setColor(sf::Color::White);
 		}
+	}
+	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad3))
+	{
+		player->SetEasy(false);
+		player->SetNormal(false);
+		player->SetExtreme(true);
+		extreme.setColor(sf::Color(Utils::RandomColor()));
+		easy.setColor(sf::Color::White);
+		normal.setColor(sf::Color::White);
 	}
 }
 

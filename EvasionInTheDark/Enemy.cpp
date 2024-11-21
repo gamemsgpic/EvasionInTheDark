@@ -92,14 +92,12 @@ void Enemy::Update(float dt)
 {
 	currentPos = position + gravity * dt;
 
-
 	enemyVolume = currentVolum + currentVolum * position.y * 0.005f;
 
 	if (enemyVolume > maxVolum)
 	{
 		enemyVolume = maxVolum;
 	}
-
 
 	sound.setVolume(enemyVolume);
 

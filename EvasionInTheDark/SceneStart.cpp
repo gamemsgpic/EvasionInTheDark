@@ -46,7 +46,7 @@ void SceneStart::Update(float dt)
 {
 	Scene::Update(dt);
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter))
 	{
 		SCENE_MGR.ChangeScene(SceneIds::Game);
 	}
