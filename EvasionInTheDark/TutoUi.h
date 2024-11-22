@@ -18,7 +18,10 @@ protected:
 	bool bassPlay = true;
 	bool drumPlay = true;
 	bool castanetsPlay = true;
+	bool explain = true;
 
+	float explainStart = 4.f;
+	float explainEnd = 4.f;
 	float soundTrigger1 = 5.f;
 	float soundTrigger2 = 5.f;
 	float soundTrigger3 = 5.f;

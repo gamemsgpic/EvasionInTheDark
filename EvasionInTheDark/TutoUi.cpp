@@ -95,6 +95,7 @@ void TutoUi::Reset()
 
 void TutoUi::Update(float dt)
 {
+	explainStart += dt;
 	soundTrigger1 += dt;
 	soundTrigger2 += dt;
 	soundTrigger3 += dt;
@@ -105,10 +106,12 @@ void TutoUi::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Right))
 	{
+		explainStart = 15.f;
 		++tutoIndex;
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Left))
 	{
+		explainStart = 15.f;
 		--tutoIndex;
 	}
 	if (tutoIndex < 0)
@@ -118,6 +121,13 @@ void TutoUi::Update(float dt)
 
 	if (tutoIndex == 0)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage1.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_1.png"));
@@ -126,6 +136,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 1)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage2.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_9.png"));
@@ -134,6 +151,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 2)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage3.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_1.png"));
@@ -142,6 +166,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 3)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage4.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		sound.stop();
 		text2.setString("Left");
 		text3.setString("Right");
@@ -152,6 +183,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 4)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage5.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_2.png"));
@@ -170,6 +208,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 5)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage6.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_3.png"));
@@ -189,6 +234,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 6)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage7.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_4.png"));
@@ -207,17 +259,31 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 7)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage8.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		soundTrigger3 = 5.f;
 		sound.stop();
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_1.png"));
-		text1.setString(L"    적은 3종류가 있습니다. 적들은 나오는 트랙이 정해져있습니다. \n 적이 나올 때는 소리가 나기시작하고, 가까울 수록 소리가 커집니다.");
+		text1.setString(L"    적은 3종류가 있습니다. 적들은 나오는 트랙이 정해져있습니다. \n 적이 나올 때는 소리가 나기시작하고, 가까울수록 소리가 커집니다.");
 		text1.setOrigin(text1.getGlobalBounds().width * 0.5f, text1.getGlobalBounds().height * 0.5f);
 		bassPlay = true;
 	}
 	if (tutoIndex == 8)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage9.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_5.png"));
@@ -233,6 +299,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 9)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage10.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_6.png"));
@@ -248,6 +321,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 10)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage11.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_7.png"));
@@ -263,6 +343,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 11)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage12.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		castanetsPlay = true;
 		sound.stop();
 		text2.setString("Left");
@@ -274,6 +361,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 12)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage13.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_1.png"));
@@ -296,6 +390,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 13)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage14.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_1.png"));
@@ -318,6 +419,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 14)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage15.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		soundTrigger2 = 5.f;
 		sound.stop();
 		text2.setString("Left");
@@ -328,6 +436,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 15)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage16.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_1.png"));
@@ -336,6 +451,13 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 16)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage17.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_10.png"));
@@ -344,10 +466,17 @@ void TutoUi::Update(float dt)
 	}
 	if (tutoIndex == 17)
 	{
+		if (explainStart > explainEnd)
+		{
+			SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage18.wav"))->setVolume(10.f);
+			explainStart = 0.f;
+		}
+		explainStart = 0.f;
+
 		text2.setString("Left");
 		text3.setString("Right");
 		body.setTexture(TEXTURE_MGR.Get("graphics/Tuto_1.png"));
-		text1.setString(L"튜토리얼이 끝났습니다. 한번 더 누르시면 타이틀 화면으로 돌아갑니다.");
+		text1.setString(L"튜토리얼이 끝났습니다. 오른쪽키를 한번 더 누르시면 타이틀 화면으로 돌아갑니다.");
 		text1.setOrigin(text1.getGlobalBounds().width * 0.5f, text1.getGlobalBounds().height * 0.5f);
 	}
 	if (tutoIndex == 18)
