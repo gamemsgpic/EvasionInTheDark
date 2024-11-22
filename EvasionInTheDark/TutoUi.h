@@ -1,6 +1,5 @@
 #pragma once
 
-
 class TutoUi : public GameObject
 {
 protected:
@@ -25,6 +24,8 @@ protected:
 	float soundTrigger1 = 5.f;
 	float soundTrigger2 = 5.f;
 	float soundTrigger3 = 5.f;
+	float soundStartTrigger = 0.f;
+	float soundStartDelay = 5.f;
 	float soundDelay = 5.f;
 
 public:

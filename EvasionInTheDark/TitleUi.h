@@ -23,6 +23,9 @@ protected:
 
 	float colorChange = 0.f;
 	float changedelay = 0.5f;
+
+	float explainStart = 4.f;
+	float explainEnd = 4.f;
 public:
 	TitleUi(const std::string& name = "");
 	~TitleUi() = default;
@@ -43,5 +46,6 @@ public:
 	void SetEasyHiScore(int s);
 	void SetNormalHiScore(int s);
 	void SetExtremeHiScore(int s);
+	void SetExplainStart();
 };
 

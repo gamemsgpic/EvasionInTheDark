@@ -50,7 +50,7 @@ void SceneStart::Update(float dt)
 	{
 		SCENE_MGR.ChangeScene(SceneIds::Game);
 	}
-	if (InputMgr::GetKeyDown(sf::Keyboard::Num8))
+	if (InputMgr::GetKeyDown(sf::Keyboard::Space))
 	{
 		SCENE_MGR.ChangeScene(SceneIds::Tuto);
 	}

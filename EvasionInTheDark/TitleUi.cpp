@@ -111,11 +111,21 @@ void TitleUi::Reset()
 	SetEasyHiScore(player->GetEasyBestScore());
 	SetNormalHiScore(player->GetNormalBestScore());
 	SetExtremeHiScore(player->GetExtremeBestScore());
+
+	explainStart = 5.f;
 }
 
 void TitleUi::Update(float dt)
 {
 	colorChange += dt;
+	explainStart += dt;
+
+	if (explainStart > explainEnd)
+	{
+		SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage19.wav"))->setVolume(10.f);
+		explainStart = 0.f;
+	}
+	explainStart = 1.f;
 
 	mousePos = InputMgr::GetMousePosition();
 	sf::Vector2f pos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
@@ -232,4 +242,9 @@ void TitleUi::SetExtremeHiScore(int s)
 {
 	textExtremeBestScore.setString("HI SCORE: " + std::to_string(s));
 	Utils::SetOrigin(textExtremeBestScore, Origins::MC);
+}
+
+void TitleUi::SetExplainStart()
+{
+	explainStart = 5.f;
 }
