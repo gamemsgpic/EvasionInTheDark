@@ -8,9 +8,7 @@ protected:
 
 	int tutoIndex = 0;
 
-	sf::Text text1;
-	sf::Text text2;
-	sf::Text text3;
+	sf::Text text;
 
 	sf::Sound sound;
 

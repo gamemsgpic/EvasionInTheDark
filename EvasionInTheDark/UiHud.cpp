@@ -59,7 +59,7 @@ void UiHud::Reset()
 	textScore.setLetterSpacing(0.2);
 	textScore.setCharacterSize(textSize);
 	textScore.setFillColor(sf::Color::White);
-	textScore.setOutlineColor(sf::Color(Utils::RandomColor()));
+	textScore.setOutlineColor(sf::Color::Transparent);
 	textScore.setOutlineThickness(2);
 	Utils::SetOrigin(textScore, Origins::TR);
 

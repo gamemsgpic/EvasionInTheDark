@@ -12,6 +12,8 @@
 #include <codecvt>
 #include <functional>
 
+#include "json.hpp"
+using json = nlohmann::json;
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>

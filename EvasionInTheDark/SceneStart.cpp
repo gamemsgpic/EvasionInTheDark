@@ -20,7 +20,7 @@ void SceneStart::Init()
 	uiView.setCenter(FRAMEWORK.GetWindowSizeF().x * 0.5f, FRAMEWORK.GetWindowSizeF().y * 0.5f);
 
 	SoundMgr::Instance().PlayBgm(SOUNDBUFFER_MGR.Get("sound/bgm.wav"), true);
-	SoundMgr::Instance().SetBgmVolume(2.f);
+	SoundMgr::Instance().SetBgmVolume(4.f);
 	Scene::Init();
 }
 

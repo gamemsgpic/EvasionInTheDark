@@ -24,8 +24,8 @@ protected:
 	float colorChange = 0.f;
 	float changedelay = 0.5f;
 
-	float explainStart = 4.f;
-	float explainEnd = 4.f;
+	float explainStart = 120.f;
+	float explainEnd = 120.f;
 public:
 	TitleUi(const std::string& name = "");
 	~TitleUi() = default;

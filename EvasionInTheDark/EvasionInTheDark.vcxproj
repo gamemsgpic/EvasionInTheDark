@@ -155,7 +155,7 @@
     <ClCompile Include="Framework\SoundMgr.cpp" />
     <ClCompile Include="Logo.cpp" />
     <ClCompile Include="SaveData.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="SceneStart.cpp" />
     <ClCompile Include="TitleUi.cpp" />
@@ -217,7 +217,7 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Logo.h" />
     <ClInclude Include="SaveData.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="SceneStart.h" />
     <ClInclude Include="TitleUi.h" />

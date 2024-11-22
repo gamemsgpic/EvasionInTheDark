@@ -112,7 +112,7 @@ void TitleUi::Reset()
 	SetNormalHiScore(player->GetNormalBestScore());
 	SetExtremeHiScore(player->GetExtremeBestScore());
 
-	explainStart = 5.f;
+	explainStart = 120.f;
 }
 
 void TitleUi::Update(float dt)
@@ -122,10 +122,9 @@ void TitleUi::Update(float dt)
 
 	if (explainStart > explainEnd)
 	{
-		SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/tutopage19.wav"))->setVolume(10.f);
+		SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/title.wav"))->setVolume(20.f);
 		explainStart = 0.f;
 	}
-	explainStart = 1.f;
 
 	mousePos = InputMgr::GetMousePosition();
 	sf::Vector2f pos = SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePos);
@@ -162,6 +161,7 @@ void TitleUi::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad1))
 	{
+		SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/easy.wav"))->setVolume(20.f);
 		player->SetEasy(true);
 		player->SetNormal(false);
 		player->SetExtreme(false);
@@ -185,6 +185,7 @@ void TitleUi::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad2))
 	{
+		SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/normal.wav"))->setVolume(20.f);
 		player->SetEasy(false);
 		player->SetNormal(true);
 		player->SetExtreme(false);
@@ -208,6 +209,7 @@ void TitleUi::Update(float dt)
 	}
 	if (InputMgr::GetKeyDown(sf::Keyboard::Numpad3))
 	{
+		SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/extreme.wav"))->setVolume(20.f);
 		player->SetEasy(false);
 		player->SetNormal(false);
 		player->SetExtreme(true);

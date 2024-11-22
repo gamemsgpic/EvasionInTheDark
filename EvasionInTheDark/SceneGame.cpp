@@ -33,7 +33,7 @@ void SceneGame::Init()
 
 
 	SoundMgr::Instance().PlayBgm(SOUNDBUFFER_MGR.Get("sound/bgm.wav"), true);
-	SoundMgr::Instance().SetBgmVolume(2.f);
+	SoundMgr::Instance().SetBgmVolume(4.f);
 	SoundMgr::Instance().PlayBgm("sound/bgm.wav");
 	Scene::Init();
 }
@@ -120,7 +120,7 @@ void SceneGame::Update(float dt)
 				{
 					player->SetScore();
 					player->LevelPointUp();
-					SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/scoreup.wav"))->setVolume(0.5f);
+					SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/scoreup.wav"))->setVolume(1.f);
 					upScoreTime = 0.f;
 					uihud->SetScoreOutColor();
 				}

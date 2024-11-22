@@ -28,8 +28,8 @@ protected:
 	int normalBestScore = 0;
 	int extremeBestScore = 0;
 
-	float damage = 3.f;
-	float damageDelay = 3.f;
+	float damage = 1.f;
+	float damageDelay = 1.f;
 	
 	bool playerDie = false;
 	bool playerhit = false;
@@ -88,4 +88,7 @@ public:
 	void SetEasy(bool e) { easy = e; }
 	void SetNormal(bool n) { normal = n; }
 	void SetExtreme(bool ex) { extreme = ex; }
+
+	bool SaveCsv(const std::string& filePath) const;
+	bool LoadCsv(const std::string& filePath);
 };

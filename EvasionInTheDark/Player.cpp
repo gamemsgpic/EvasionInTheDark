@@ -3,6 +3,7 @@
 #include "Track.h"
 #include "Enemy.h"
 #include "SceneGame.h"
+#include "rapidcsv.h"
 
 Player::Player(const std::string& name)
 	: GameObject(name)
@@ -65,6 +66,7 @@ void Player::Init()
 	hitBox.setOutlineColor(sf::Color::Green);
 	hitBox.setOutlineThickness(2);
 
+	LoadCsv("score.csv");
 	//hit = false;
 
 
@@ -177,7 +179,7 @@ void Player::Update(float dt)
 		{
 			if (damage > damageDelay)
 			{
-				SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/damage.wav"))->setVolume(3.f);
+				SoundMgr::Instance().CanStopPlaySfx(SOUNDBUFFER_MGR.Get("sound/damage.wav"))->setVolume(6.f);
 				--life;
 				enemy->ChangeHit(true);
 				damage = 0.f;
@@ -207,6 +209,7 @@ void Player::Update(float dt)
 	if (life == 0)
 	{
 		playerDie = true;
+		SaveCsv("score.csv");
 		//spawnChange = false;
 	}
 	else
@@ -246,4 +249,28 @@ int Player::GetBestScore()
 	{
 		return extremeBestScore;
 	}
+}
+
+
+bool Player::SaveCsv(const std::string& filePath) const
+{
+	std::ofstream outFile(filePath);
+	outFile << "Score" << std::endl;
+
+	outFile <<"easyBestScore"<< "," << easyBestScore << std::endl;
+	outFile << "normalBestScore" << "," << normalBestScore << std::endl;
+	outFile << "extremeBestScore" << "," << extremeBestScore << std::endl;
+
+	return true;
+}
+
+bool Player::LoadCsv(const std::string& filePath)
+{
+	rapidcsv::Document doc(filePath);
+
+	easyBestScore = doc.GetCell<int>(1, 0);
+	normalBestScore = doc.GetCell<int>(1, 1);
+	extremeBestScore = doc.GetCell<int>(1, 2);
+
+	return true;
 }
